@@ -636,8 +636,8 @@
             </div>
 
             <div class="layout-toggle-group">
-                <button class="layout-btn" id="btn-radial" onclick="toggleLayout('radial')">Radial Map</button>
-                <button class="layout-btn active" id="btn-orthogonal" onclick="toggleLayout('columns')">Mind-map Columns</button>
+                <button class="layout-btn active" id="btn-radial" onclick="toggleLayout('radial')">Radial Map</button>
+                <button class="layout-btn" id="btn-orthogonal" onclick="toggleLayout('columns')">Mind-map Columns</button>
             </div>
         </div>
         
@@ -800,7 +800,7 @@
         let pY = 0;
         let activeF = 'all';
         let selNodeId = null;
-        let currentLayout = 'columns'; // 'radial' or 'columns'
+        let currentLayout = 'radial'; // 'radial' or 'columns'
         let isTransitioning = false;
 
         const container = document.getElementById('network-container');
@@ -1191,6 +1191,14 @@
             calculatePositions();
             applyPositions();
             renderNodes();
+            zoomReset();
+        });
+
+        window.addEventListener('load', () => {
+            setTimeout(zoomReset, 100);
+        });
+
+        window.addEventListener('resize', () => {
             zoomReset();
         });
     </script>
