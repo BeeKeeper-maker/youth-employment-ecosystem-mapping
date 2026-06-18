@@ -636,8 +636,8 @@
             </div>
 
             <div class="layout-toggle-group">
-                <button class="layout-btn active" id="btn-radial" onclick="toggleLayout('radial')">Radial Map</button>
-                <button class="layout-btn" id="btn-orthogonal" onclick="toggleLayout('columns')">Mind-map Columns</button>
+                <button class="layout-btn" id="btn-radial" onclick="toggleLayout('radial')">Radial Map</button>
+                <button class="layout-btn active" id="btn-orthogonal" onclick="toggleLayout('columns')">Mind-map Columns</button>
             </div>
         </div>
         
@@ -800,7 +800,7 @@
         let pY = 0;
         let activeF = 'all';
         let selNodeId = null;
-        let currentLayout = 'radial'; // 'radial' or 'columns'
+        let currentLayout = 'columns'; // 'radial' or 'columns'
         let isTransitioning = false;
 
         const container = document.getElementById('network-container');
@@ -1153,9 +1153,14 @@
         }
 
         function zoomReset() {
-            zoomVal = 0.95;
-            // Center the container
             const viewRect = viewPort.getBoundingClientRect();
+            if (currentLayout === 'columns') {
+                zoomVal = Math.min(viewRect.width / 1800, viewRect.height / 1800);
+                zoomVal = Math.max(Math.min(zoomVal, 0.9), 0.45);
+            } else {
+                zoomVal = Math.min(viewRect.width / 1200, viewRect.height / 1200);
+                zoomVal = Math.max(Math.min(zoomVal, 1.0), 0.5);
+            }
             pX = (viewRect.width / 2) - 1000 * zoomVal;
             pY = (viewRect.height / 2) - 1000 * zoomVal;
             updateTransform();
