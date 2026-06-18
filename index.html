@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Interactive Ecosystem Map | Save the Children</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --grid-color: rgba(148, 163, 184, 0.06);
+            --border-color: rgba(148, 163, 184, 0.15);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --sci-red: #d81f26;
+            
+            --priority-now: #ef4444;
+            --priority-next: #3b82f6;
+            --priority-later: #10b981;
+            
+            --sadar: #0d9488;
+            --debhata: #7c3aed;
+            --ashashuni: #ea580c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 20%, #e0f2fe 0%, transparent 45%),
+                radial-gradient(circle at 90% 80%, #f3e8ff 0%, transparent 45%),
+                radial-gradient(var(--grid-color) 1.5px, transparent 1.5px);
+            background-size: 100% 100%, 100% 100%, 24px 24px;
+            user-select: none;
+        }
+
+        /* Top Header */
+        header {
+            text-align: center;
+            padding: 1.25rem 2rem;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .header-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #0f172a;
+        }
+
+        .header-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        /* Navigation / Control Panel */
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 2rem;
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.01);
+        }
+
+        .left-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .search-box {
+            position: relative;
+            width: 320px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.6rem 1rem 0.6rem 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            font-family: inherit;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+        }
+
+        .search-box input:focus {
+            border-color: var(--sci-red);
+            box-shadow: 0 0 10px rgba(216, 31, 38, 0.12);
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 15px;
+            height: 15px;
+            fill: var(--text-secondary);
+        }
+
+        .layout-toggle-group {
+            display: flex;
+            background: rgba(0, 0, 0, 0.04);
+            padding: 0.25rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .layout-btn {
+            background: none;
+            border: none;
+            padding: 0.45rem 1rem;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+
+        .layout-btn.active {
+            background: #ffffff;
+            color: var(--text-primary);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .filter-btn-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1.1rem;
+            border-radius: 11px;
+            cursor: pointer;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .filter-btn.active {
+            background: var(--sci-red);
+            border-color: var(--sci-red);
+            color: white;
+            box-shadow: 0 4px 10px rgba(216, 31, 38, 0.2);
+        }
+
+        /* Main Viewport */
+        .viewport {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            cursor: grab;
+        }
+
+        .viewport:active {
+            cursor: grabbing;
+        }
+
+        .network-container {
+            position: absolute;
+            width: 2000px;
+            height: 2000px;
+            top: 50%;
+            left: 50%;
+            margin-top: -1000px;
+            margin-left: -1000px;
+            transform-origin: center center;
+            transition: transform 0.1s ease-out;
+        }
+
+        /* SVG Lines */
+        .network-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .edge {
+            fill: none;
+            stroke-width: 2.2;
+            transition: stroke 0.3s, stroke-width 0.3s, opacity 0.3s;
+            stroke-linecap: round;
+        }
+
+        .edge.sadar { stroke: rgba(13, 148, 136, 0.25); }
+        .edge.debhata { stroke: rgba(124, 58, 237, 0.25); }
+        .edge.ashashuni { stroke: rgba(234, 88, 12, 0.25); }
+
+        .edge.highlighted {
+            stroke-width: 5.5;
+            filter: drop-shadow(0 0 5px currentColor);
+            opacity: 1 !important;
+        }
+        .edge.sadar.highlighted { stroke: var(--sadar); }
+        .edge.debhata.highlighted { stroke: var(--debhata); }
+        .edge.ashashuni.highlighted { stroke: var(--ashashuni); }
+
+        .edge.dimmed {
+            opacity: 0.08;
+        }
+
+        .edge-pulse {
+            stroke-dasharray: 8, 8;
+            animation: flow 18s linear infinite;
+            stroke-width: 1.5;
+            opacity: 0.6;
+        }
+
+        @keyframes flow {
+            to { stroke-dashoffset: -1000; }
+        }
+
+        /* HTML Nodes Layer */
+        .nodes-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .node {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            pointer-events: auto;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: left 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                        top 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                        transform 0.3s, box-shadow 0.3s, border-color 0.3s, background 0.3s;
+            text-align: center;
+        }
+
+        /* Master Center Hub Node */
+        .node-center {
+            width: 320px;
+            height: 320px;
+            background: #ffffff;
+            border: 4px solid var(--sci-red);
+            box-shadow: 0 15px 45px rgba(216, 31, 38, 0.2);
+            z-index: 10;
+            padding: 1.5rem;
+        }
+
+        .node-center h3 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-top: 0.5rem;
+            margin-bottom: 0.25rem;
+            line-height: 1.25;
+        }
+
+        .node-center p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        /* Upazila Sub-hubs */
+        .node-hub {
+            width: 130px;
+            height: 130px;
+            background: #ffffff;
+            border: 3.5px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(148, 163, 184, 0.15);
+            z-index: 9;
+            font-weight: 800;
+            font-size: 0.95rem;
+        }
+
+        .node-hub.sadar { border-color: var(--sadar); color: var(--sadar); }
+        .node-hub.debhata { border-color: var(--debhata); color: var(--debhata); }
+        .node-hub.ashashuni { border-color: var(--ashashuni); color: var(--ashashuni); }
+
+        /* Actor Leaf Nodes */
+        .node-leaf {
+            width: 65px;
+            height: 65px;
+            background: #ffffff;
+            border: 2.5px solid var(--border-color);
+            box-shadow: 0 5px 20px rgba(148, 163, 184, 0.08);
+            cursor: pointer;
+            z-index: 8;
+            font-size: 1.3rem; /* Emoji size */
+        }
+
+        .node-leaf.sadar { border-color: var(--sadar); }
+        .node-leaf.debhata { border-color: var(--debhata); }
+        .node-leaf.ashashuni { border-color: var(--ashashuni); }
+
+        .node-leaf:hover, .node-leaf.active {
+            transform: translate(-50%, -50%) scale(1.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            z-index: 25;
+            background: #ffffff;
+        }
+
+        .node-leaf.dimmed {
+            opacity: 0.25;
+        }
+
+        /* Priority Dot ring indicators */
+        .priority-dot {
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .priority-dot.now { background-color: var(--priority-now); }
+        .priority-dot.next { background-color: var(--priority-next); }
+        .priority-dot.later { background-color: var(--priority-later); }
+
+        /* Floating HTML Tooltips on Hover */
+        .node-tooltip {
+            position: absolute;
+            top: 72px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid var(--border-color);
+            padding: 0.35rem 0.75rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            color: var(--text-primary);
+            z-index: 30;
+        }
+
+        .node-leaf:hover .node-tooltip {
+            opacity: 1;
+        }
+
+        /* Floating HUD Widgets */
+        .floating-widget {
+            position: fixed;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1rem;
+            box-shadow: 0 10px 25px rgba(148, 163, 184, 0.12);
+            z-index: 40;
+        }
+
+        /* Legend Panel */
+        .legend-panel {
+            bottom: 2rem;
+            left: 2rem;
+            width: 260px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .legend-title {
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.4rem;
+        }
+
+        .legend-row {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .legend-color {
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
+        }
+
+        .legend-priority {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* Stats Panel */
+        .stats-panel {
+            top: 8.5rem;
+            left: 2rem;
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .stat-row span:last-child {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        /* Zoom controls */
+        .zoom-controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 50;
+        }
+
+        .zoom-btn {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(148, 163, 184, 0.2);
+            transition: all 0.2s;
+            color: var(--text-primary);
+        }
+
+        .zoom-btn:hover {
+            transform: scale(1.08);
+            border-color: var(--text-secondary);
+        }
+
+        .zoom-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Detail Sidebar Panel */
+        .detail-panel {
+            position: fixed;
+            top: 0;
+            right: -460px;
+            width: 440px;
+            height: 100%;
+            background: #ffffff;
+            border-left: 1px solid var(--border-color);
+            box-shadow: -10px 0 35px rgba(148, 163, 184, 0.15);
+            z-index: 100;
+            padding: 3rem 2rem;
+            transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow-y: auto;
+        }
+
+        .detail-panel.open {
+            right: 0;
+        }
+
+        .panel-close {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-weight: 700;
+        }
+
+        .panel-close:hover {
+            color: black;
+        }
+
+        .panel-header {
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .panel-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .panel-meta-tag {
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.04);
+            color: var(--text-secondary);
+            display: inline-block;
+        }
+
+        .panel-section {
+            margin-bottom: 1.75rem;
+        }
+
+        .panel-label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--sci-red);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.4rem;
+        }
+
+        .panel-value {
+            font-size: 0.92rem;
+            color: #334155;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: start;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        .checkbox-item.checked { color: #059669; }
+        .checkbox-item.warning { color: #d97706; }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.15);
+            backdrop-filter: blur(4px);
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <svg viewBox="0 0 100 100" style="width: 45px; height: 45px;">
+                <circle cx="50" cy="50" r="48" fill="#D81F26" />
+                <circle cx="50" cy="32" r="10" fill="#FFFFFF" />
+                <path d="M50 45 C42 45 35 38 27 30 C24 27 22 28 24 32 C28 42 38 52 46 55 L43 78 C42 80 43 82 46 82 L54 82 C57 82 58 80 57 78 L54 55 C62 52 72 42 76 32 C78 28 76 27 73 30 C65 38 58 45 50 45 Z" fill="#FFFFFF" />
+                <path d="M22 65 C18 55 18 42 24 32 C22 34 20 37 19 41 C16 52 18 64 24 74 C25 76 27 75 26 73 Z" fill="#FFFFFF" />
+                <path d="M78 65 C82 55 82 42 76 32 C78 34 80 37 81 41 C84 52 82 64 76 74 C75 76 73 75 74 73 Z" fill="#FFFFFF" />
+            </svg>
+            <h1 class="header-title">Save the Children</h1>
+        </div>
+        <p class="header-subtitle">Youth Employment Ecosystem Mapping | Satkhira District</p>
+    </header>
+
+    <div class="control-panel">
+        <div class="left-controls">
+            <div class="search-box">
+                <svg viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/></svg>
+                <input type="text" id="nodeSearch" placeholder="Search actor by name or service..." oninput="handleSearch()">
+            </div>
+
+            <div class="layout-toggle-group">
+                <button class="layout-btn active" id="btn-radial" onclick="toggleLayout('radial')">Radial Map</button>
+                <button class="layout-btn" id="btn-orthogonal" onclick="toggleLayout('columns')">Mind-map Columns</button>
+            </div>
+        </div>
+        
+        <div class="filter-btn-group">
+            <button class="filter-btn active" data-filter="all" onclick="applyFilter('all')">All Priority</button>
+            <button class="filter-btn" data-filter="now" onclick="applyFilter('now')">NOW</button>
+            <button class="filter-btn" data-filter="next" onclick="applyFilter('next')">NEXT</button>
+            <button class="filter-btn" data-filter="later" onclick="applyFilter('later')">LATER</button>
+        </div>
+    </div>
+
+    <!-- Map Viewport -->
+    <div class="viewport" id="viewport">
+        <div class="network-container" id="network-container">
+            <!-- Dynamic Edge SVG Canvas -->
+            <svg class="network-svg" id="network-svg"></svg>
+            
+            <!-- Nodes -->
+            <div class="nodes-layer" id="nodes-layer">
+                <!-- Master Center Hub (Contains the full required text + Logo) -->
+                <div class="node node-center" style="top: 1000px; left: 1000px;">
+                    <div style="display: flex; justify-content: center; margin-bottom: 0.6rem;">
+                        <svg viewBox="0 0 100 100" style="width: 50px; height: 50px; filter: drop-shadow(0 4px 6px rgba(216, 31, 38, 0.2));">
+                            <circle cx="50" cy="50" r="48" fill="#D81F26" />
+                            <circle cx="50" cy="32" r="10" fill="#FFFFFF" />
+                            <path d="M50 45 C42 45 35 38 27 30 C24 27 22 28 24 32 C28 42 38 52 46 55 L43 78 C42 80 43 82 46 82 L54 82 C57 82 58 80 57 78 L54 55 C62 52 72 42 76 32 C78 28 76 27 73 30 C65 38 58 45 50 45 Z" fill="#FFFFFF" />
+                            <path d="M22 65 C18 55 18 42 24 32 C22 34 20 37 19 41 C16 52 18 64 24 74 C25 76 27 75 26 73 Z" fill="#FFFFFF" />
+                            <path d="M78 65 C82 55 82 42 76 32 C78 34 80 37 81 41 C84 52 82 64 76 74 C75 76 73 75 74 73 Z" fill="#FFFFFF" />
+                        </svg>
+                    </div>
+                    <span style="font-size:0.65rem; font-weight:800; color:var(--sci-red); letter-spacing:1px; text-transform:uppercase;">Ecosystem Hub</span>
+                    <h3>Youth Employment Ecosystem Mapping</h3>
+                    <p style="font-style: italic; font-weight:600; color:var(--text-secondary);">for (Gender-sensitive needs assessments to identify employment barriers faced by young women)</p>
+                </div>
+
+                <!-- Upazila hubs -->
+                <div class="node node-hub sadar" id="hub-sadar">Satkhira Sadar</div>
+                <div class="node node-hub debhata" id="hub-debhata">Debhata</div>
+                <div class="node node-hub ashashuni" id="hub-ashashuni">Ashashuni</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Stats HUD -->
+    <div class="floating-widget stats-panel">
+        <div class="legend-title">Ecosystem Stats</div>
+        <div class="stat-row"><span>Total Stakeholders</span> <span id="stat-total">29</span></div>
+        <div class="stat-row"><span>Satkhira Sadar</span> <span>12</span></div>
+        <div class="stat-row"><span>Debhata</span> <span>8</span></div>
+        <div class="stat-row"><span>Ashashuni</span> <span>9</span></div>
+        <div class="stat-row"><span>NOW Priority</span> <span style="color:var(--priority-now)">17</span></div>
+    </div>
+
+    <!-- Floating Legend Panel -->
+    <div class="floating-widget legend-panel">
+        <div class="legend-title">Upazila Channels</div>
+        <div class="legend-row"><span class="legend-color" style="background:var(--sadar)"></span> Satkhira Sadar (Teal)</div>
+        <div class="legend-row"><span class="legend-color" style="background:var(--debhata)"></span> Debhata Upazila (Purple)</div>
+        <div class="legend-row"><span class="legend-color" style="background:var(--ashashuni)"></span> Ashashuni Upazila (Orange)</div>
+        
+        <div class="legend-title" style="margin-top:0.4rem">Strategic Tiers</div>
+        <div class="legend-row"><span class="legend-priority now"></span> NOW Tier (Immediate Engagement)</div>
+        <div class="legend-row"><span class="legend-priority next"></span> NEXT Tier (Refit / Future Link)</div>
+        <div class="legend-row"><span class="legend-priority later"></span> LATER Tier (Long Term / Gated)</div>
+    </div>
+
+    <!-- Floating Zoom HUD Controls -->
+    <div class="zoom-controls">
+        <button class="zoom-btn" onclick="zoomIn()" title="Zoom In">
+            <svg viewBox="0 0 24 24"><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/></svg>
+        </button>
+        <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">
+            <svg viewBox="0 0 24 24"><path d="M19,13H5V11H19V13Z"/></svg>
+        </button>
+        <button class="zoom-btn" onclick="zoomReset()" title="Reset & Center View">
+            <svg viewBox="0 0 24 24"><path d="M12,4C14.21,4 16,5.79 16,8C16,9.5 15,11 13.5,12.2C12.7,12.9 12,13.9 12,15H10C10,13 11,11.5 12,10.5C13,9.5 14,8.9 14,8C14,6.9 13.1,6 12,6C10.9,6 10,6.9 10,8H8C8,5.79 9.79,4 12,4M11,17H13V19H11V17Z"/></svg>
+        </button>
+    </div>
+
+    <!-- Sliding Sidebar Details Panel -->
+    <div class="overlay" id="panel-overlay" onclick="closePanel()"></div>
+    <div class="detail-panel" id="detail-panel">
+        <button class="panel-close" onclick="closePanel()">
+            <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.16L13.5,5.58L8,11H20Z"/></svg>
+            Back to Map
+        </button>
+        
+        <div class="panel-header">
+            <h3 class="panel-title" id="panel-title">Actor Name</h3>
+            <span class="panel-meta-tag" id="panel-type">Type</span>
+            <span class="panel-meta-tag" id="panel-upazila" style="margin-left: 0.5rem;">Upazila</span>
+        </div>
+
+        <div class="panel-section">
+            <div class="panel-label">Strategic Priority</div>
+            <div class="panel-value" style="display:flex; align-items:center; gap:0.5rem; font-weight:800;" id="panel-priority-box">
+                <span class="priority-dot now" id="panel-priority-dot" style="position:static;"></span>
+                <span id="panel-priority-text">NOW</span>
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <div class="panel-label">Key Services Offered</div>
+            <div class="panel-value" id="panel-services">Services list...</div>
+        </div>
+
+        <div class="panel-section">
+            <div class="panel-label">Gender-Sensitive Practices</div>
+            <div class="panel-value" id="panel-gender">Gender aspects...</div>
+        </div>
+        
+        <div class="panel-section">
+            <div class="panel-label">Safeguarding & Inclusion Status</div>
+            <div id="panel-checklists">
+                <!-- Checklist items -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const actors = [
+            // Satkhira Sadar
+            { id: "s1", name: "TTC Satkhira", short: "TTC", upazila: "Satkhira Sadar", type: "Government Training", priority: "now", emoji: "🏛️", services: "Garment manufacturing, computer operator courses; dedicated job placement cell; Walton/RFL links; job fairs.", women: "Separate toilets, prayer room, grievance box, and residential facilities.", safeguarding: ["Placement Cell", "Separate Washrooms"] },
+            { id: "s2", name: "Rishilpi Foundation", short: "Rishilpi", upazila: "Satkhira Sadar", type: "Social Enterprise", priority: "now", emoji: "🤝", services: "Nakshi Kantha, Jute/straw crafts; home-based production delivery & product collection.", women: "Highly inclusive home-based model; PWD friendly; sexual harassment response policies.", safeguarding: ["Home Delivery", "PWD Friendly", "Anti-harassment code"] },
+            { id: "s3", name: "DYD Sadar", short: "DYD", upazila: "Satkhira Sadar", type: "Govt Training", priority: "now", emoji: "🏛️", services: "Livestock rearing, agriculture, computer packages; microcredit loans.", women: "Low course fees; separate toilets; fee waivers for disabled candidates.", safeguarding: ["Govt Loans", "Subsidized Fees"] },
+            { id: "s4", name: "DWA Sadar", short: "DWA", upazila: "Satkhira Sadar", type: "Govt Empowerment", priority: "now", emoji: "🏛️", services: "Tailoring, beauty parlor, computer, small business; legal aid & GBV referral.", women: "Direct gender mandate; counseling rooms; daycare centers advocacy.", safeguarding: ["GBV Referral", "Legal Counseling"] },
+            { id: "s5", name: "BSCIC Satkhira", short: "BSCIC", upazila: "Satkhira Sadar", type: "Govt SME", priority: "now", emoji: "🏛️", services: "5% low-interest loans, plot allocations, trade fair mentoring.", women: "30% women priority quota for industrial plots and credit.", safeguarding: ["30% Plot Quota", "Low Interest"] },
+            { id: "s6", name: "Rony Plywood", short: "Rony", upazila: "Satkhira Sadar", type: "Private Employer", priority: "now", emoji: "🏢", services: "Board finishing, cleaning, floor production; on-the-job training.", women: "Separate washrooms, CCTV, feedback boxes. No childcare daycare.", safeguarding: ["Wage Progression", "No Daycare (GAP)"] },
+            { id: "s7", name: "BWRDS", short: "BWRDS", upazila: "Satkhira Sadar", type: "NGO / Training", priority: "next", emoji: "🤝", services: "Digital marketing, freelancing, handicrafts, tailoring.", women: "Separate washrooms, breastfeeding room, prayer space.", safeguarding: ["Breastfeeding Room", "Grievance Desk"] },
+            { id: "s8", name: "Progress / Winrock", short: "Progress", upazila: "Satkhira Sadar", type: "Development Partner", priority: "next", emoji: "🤝", services: "Entrepreneurship, electrical house-wiring, sewing; survivor-sensitive.", women: "High safety protocols; strictly non-hazardous job options.", safeguarding: ["Survivor Sensitive", "Decent Work Check"] },
+            { id: "s9", name: "Rupantor", short: "Rupantor", upazila: "Satkhira Sadar", type: "NGO", priority: "next", emoji: "🤝", services: "Safe work advocacy, internships, NGO sector recruitment.", women: "Vocal gender equity commitment throughout programs.", safeguarding: ["Internships", "Equity Mandate"] },
+            { id: "s10", name: "China Bangla Food", short: "China B", upazila: "Satkhira Sadar", type: "Food Manufacturer", priority: "next", emoji: "🏢", services: "Packaging, sorting, cleaning, seasonal production.", women: "Separate washrooms. Lower wages (BDT 5500-6000) below threshold.", safeguarding: ["Low Wage Alert", "Seasonal Guard"] },
+            { id: "s11", name: "Unilever", short: "Unilever", upazila: "Satkhira Sadar", type: "MNC / FMCG", priority: "later", emoji: "🏢", services: "Sales, territory operations, HR, supply chain. Degree required.", women: "Breastfeeding rooms, paid maternity leave, travel allowances.", safeguarding: ["Degree Needed", "Maternity Leave"] },
+            { id: "s12", name: "Breaking The Silence", short: "BTS", upazila: "Satkhira Sadar", type: "Implementing Partner", priority: "now", emoji: "🔴", services: "Save the Children IP. Participant mobilization, vulnerability mapping, family gating.", women: "Trusted community actor; focus on NEET and vulnerable women.", safeguarding: ["NEET Outreach", "SCI Partner"] },
+
+            // Debhata
+            { id: "d1", name: "Uttaran Technical Inst.", short: "Uttaran", upazila: "Debhata", type: "Training Provider", priority: "now", emoji: "🏛️", services: "Benchmark model: Garments, mobile repairing; free residential training, transport allowance; job replacement support.", women: "Full residential care, separate washrooms, PWD access, feedback boxes.", safeguarding: ["Benchmark Model", "Free Residential", "Transport Pay"] },
+            { id: "d2", name: "Taskia Garments", short: "Taskia", upazila: "Debhata", type: "Local Employer", priority: "now", emoji: "🏢", services: "Tailoring, block-batik apprenticeships; seasonal hiring.", women: "Women-only environment; lacks on-site washroom facilities (upgrade needed).", safeguarding: ["Facility Upgrade Required", "Apprentice Slots"] },
+            { id: "d3", name: "Noabeki Foundation", short: "Noabeki", upazila: "Debhata", type: "NGO / Livelihood", priority: "now", emoji: "🤝", services: "Tailoring, beautician, block-batik training, micro-loans.", women: "Focus on vulnerable rural girls; financial literacy programs.", safeguarding: ["High Placement Claim", "Rural Focus"] },
+            { id: "d4", name: "DYD Debhata", short: "DYD", upazila: "Debhata", type: "Govt Training", priority: "now", emoji: "🏛️", services: "Fish culture, cattle/goat rearing, poultry, tailoring.", women: "Supports home-based work setups. Limited PWD facilities.", safeguarding: ["Home Livelihoods", "Subsidy"] },
+            { id: "d5", name: "DWA Debhata", short: "DWA", upazila: "Debhata", type: "Govt Empowerment", priority: "now", emoji: "🏛️", services: "IGA training; community mobilization; targeting vulnerable women.", women: "Direct targeting of marginalized girls; high local legitimacy.", safeguarding: ["Govt legitimacy", "Vulnerable Outreach"] },
+            { id: "d6", name: "Echamoti Tech College", short: "Echamoti", upazila: "Debhata", type: "Training Provider", priority: "next", emoji: "🏛️", services: "Food processing, fish culture, business digital skills.", women: "WhatsApp group for complaints and direct student support.", safeguarding: ["Age 14-18 overlap", "WhatsApp Support"] },
+            { id: "d7", name: "Debhata ICT Office", short: "ICT", upazila: "Debhata", type: "Govt ICT", priority: "next", emoji: "🏛️", services: "Basic computer training. No specialized female packages.", women: "Temporary facility; lacks dedicated female toilets.", safeguarding: ["Facility Fix Required", "No Active Projects"] },
+            { id: "d8", name: "Breaking The Silence (D)", short: "BTS (D)", upazila: "Debhata", type: "Implementing Partner", priority: "now", emoji: "🔴", services: "Save the Children IP. Participant mobilization, community advocacy.", women: "Trusted local actor; targets NEET girls.", safeguarding: ["NEET Focus", "SCI Partner"] },
+
+            // Ashashuni
+            { id: "a1", name: "Tohomina Ladies Garments", short: "Tohomina", upazila: "Ashashuni", type: "Private / Training", priority: "now", emoji: "🏢", services: "Tailoring assistant courses, apprenticeships, local self-employment.", women: "Top choice in FGDs due to secure, close, women-only environment.", safeguarding: ["Top FGD Pick", "Women Only Setting"] },
+            { id: "a2", name: "SUS", short: "SUS", upazila: "Ashashuni", type: "NGO Livelihood", priority: "now", emoji: "🤝", services: "Guru-shishya model apprenticeships, micro-finance packages.", women: "Trusted rural organization; gender-sensitive local mentors.", safeguarding: ["Guru-Shishya Model", "Rural Finance"] },
+            { id: "a3", name: "Local Poultry/Livestock", short: "Livestock", upazila: "Ashashuni", type: "Informal Agri", priority: "now", emoji: "🐔", services: "Poultry rearing, duck farming, goat/cattle vaccination support.", women: "Extremely home-compatible; 80% female workforce ratio.", safeguarding: ["80% Women Workers", "Home-based Livelihoods"] },
+            { id: "a4", name: "Youth Development Office", short: "YDO", upazila: "Ashashuni", type: "Govt Training", priority: "next", emoji: "🏛️", services: "43 vocational courses; low-interest loans; poultry batches.", women: "Reported separate washrooms and female-friendly facilities.", safeguarding: ["43 Courses", "Govt Loans"] },
+            { id: "a5", name: "Women Affairs Office", short: "WAO", upazila: "Ashashuni", type: "Govt Social", priority: "next", emoji: "🏛️", services: "Tailoring, livestock training, loan disbursement packages.", women: "Direct gender mandate; targeted programs for vulnerable girls.", safeguarding: ["Vulnerable targeting", "Grants"] },
+            { id: "a6", name: "Satata Ladies Tailors", short: "Satata", upazila: "Ashashuni", type: "Training Provider", priority: "next", emoji: "🏢", services: "Tailoring training, shop attachments; linked with BRAC.", women: "Women-only setting, but lacks dedicated toilet facilities (upgrade needed).", safeguarding: ["Facility Upgrade Required", "BRAC Linked"] },
+            { id: "a7", name: "Monayem Computer", short: "Monayem", upazila: "Ashashuni", type: "ICT Training", priority: "next", emoji: "🏢", services: "Basic MS Office, graphic design, online freelancing.", women: "Lacks separate female washrooms. Requires SSC background.", safeguarding: ["No Washroom (GAP)", "SSC+ Requirement"] },
+            { id: "a8", name: "Ashashuni ICT Office", short: "ICT", upazila: "Ashashuni", type: "Govt ICT", priority: "next", emoji: "🏛️", services: "Computer literacy; previously ran the 'Her Power' project.", women: "Currently lacks active women-focused projects or facilities.", safeguarding: ["Former Her Power Site", "No Active Projects"] },
+            { id: "a9", name: "Breaking The Silence (A)", short: "BTS (A)", upazila: "Ashashuni", type: "Implementing Partner", priority: "now", emoji: "🔴", services: "Save the Children IP. Vulnerability segmentation, community gating.", women: "Targets NEET/vulnerable; addresses religious and social barriers.", safeguarding: ["NEET Gating", "SCI Partner"] }
+        ];
+
+        let zoomVal = 1;
+        let pX = 0;
+        let pY = 0;
+        let activeF = 'all';
+        let selNodeId = null;
+        let currentLayout = 'radial'; // 'radial' or 'columns'
+        let isTransitioning = false;
+
+        const container = document.getElementById('network-container');
+        const viewPort = document.getElementById('viewport');
+        const nodesLayer = document.getElementById('nodes-layer');
+
+        const centerCoords = { x: 1000, y: 1000 };
+        const upazilaCoords = {
+            "Satkhira Sadar": { r: 260, angle: 180 }, 
+            "Debhata": { r: 260, angle: 300 },       
+            "Ashashuni": { r: 260, angle: 60 }      
+        };
+
+        // Positions calculator
+        function calculatePositions() {
+            if (currentLayout === 'radial') {
+                // Radial hub locations
+                hubsData.sadar = {
+                    x: centerCoords.x + upazilaCoords["Satkhira Sadar"].r * Math.cos(upazilaCoords["Satkhira Sadar"].angle * Math.PI / 180),
+                    y: centerCoords.y + upazilaCoords["Satkhira Sadar"].r * Math.sin(upazilaCoords["Satkhira Sadar"].angle * Math.PI / 180)
+                };
+                hubsData.debhata = {
+                    x: centerCoords.x + upazilaCoords["Debhata"].r * Math.cos(upazilaCoords["Debhata"].angle * Math.PI / 180),
+                    y: centerCoords.y + upazilaCoords["Debhata"].r * Math.sin(upazilaCoords["Debhata"].angle * Math.PI / 180)
+                };
+                hubsData.ashashuni = {
+                    x: centerCoords.x + upazilaCoords["Ashashuni"].r * Math.cos(upazilaCoords["Ashashuni"].angle * Math.PI / 180),
+                    y: centerCoords.y + upazilaCoords["Ashashuni"].r * Math.sin(upazilaCoords["Ashashuni"].angle * Math.PI / 180)
+                };
+
+                // Radial leaf positioning
+                positionLeavesRadial(actors.filter(a => a.upazila === "Satkhira Sadar"), hubsData.sadar.x, hubsData.sadar.y, 220, 110, 250);
+                positionLeavesRadial(actors.filter(a => a.upazila === "Debhata"), hubsData.debhata.x, hubsData.debhata.y, 220, 240, 360);
+                positionLeavesRadial(actors.filter(a => a.upazila === "Ashashuni"), hubsData.ashashuni.x, hubsData.ashashuni.y, 220, 0, 120);
+
+            } else {
+                // Column Mindmap locations
+                hubsData.sadar = { x: 550, y: 1000 };
+                hubsData.debhata = { x: 1450, y: 500 };
+                hubsData.ashashuni = { x: 1450, y: 1500 };
+
+                // Column Leaf positioning (spaced vertically)
+                positionLeavesColumn(actors.filter(a => a.upazila === "Satkhira Sadar"), 200, 200, 1800);
+                positionLeavesColumn(actors.filter(a => a.upazila === "Debhata"), 1800, 150, 850);
+                positionLeavesColumn(actors.filter(a => a.upazila === "Ashashuni"), 1800, 1150, 1850);
+            }
+        }
+
+        const hubsData = { sadar: {}, debhata: {}, ashashuni: {} };
+
+        function positionLeavesRadial(list, parentX, parentY, radius, startAngleDeg, endAngleDeg) {
+            const count = list.length;
+            const step = count > 1 ? (endAngleDeg - startAngleDeg) / (count - 1) : 0;
+            
+            list.forEach((actor, index) => {
+                const angle = (startAngleDeg + index * step) * Math.PI / 180;
+                actor.targetX = parentX + radius * Math.cos(angle);
+                actor.targetY = parentY + radius * Math.sin(angle);
+                actor.px = parentX;
+                actor.py = parentY;
+            });
+        }
+
+        function positionLeavesColumn(list, targetX, startY, endY) {
+            const count = list.length;
+            const step = count > 1 ? (endY - startY) / (count - 1) : 0;
+            
+            list.forEach((actor, index) => {
+                actor.targetX = targetX;
+                actor.targetY = startY + index * step;
+                // px, py represents the connecting hub coordinate
+                actor.px = actor.upazila === "Satkhira Sadar" ? hubsData.sadar.x : (actor.upazila === "Debhata" ? hubsData.debhata.x : hubsData.ashashuni.x);
+                actor.py = actor.upazila === "Satkhira Sadar" ? hubsData.sadar.y : (actor.upazila === "Debhata" ? hubsData.debhata.y : hubsData.ashashuni.y);
+            });
+        }
+
+        // Apply target coordinates to node DOM elements
+        function applyPositions() {
+            positionNode('hub-sadar', hubsData.sadar.x, hubsData.sadar.y);
+            positionNode('hub-debhata', hubsData.debhata.x, hubsData.debhata.y);
+            positionNode('hub-ashashuni', hubsData.ashashuni.x, hubsData.ashashuni.y);
+
+            actors.forEach(actor => {
+                actor.x = actor.targetX;
+                actor.y = actor.targetY;
+                const el = document.getElementById(`node-${actor.id}`);
+                if (el) {
+                    el.style.left = `${actor.x}px`;
+                    el.style.top = `${actor.y}px`;
+                }
+            });
+        }
+
+        function positionNode(id, x, y) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.style.left = `${x}px`;
+                el.style.top = `${y}px`;
+            }
+        }
+
+        // Toggle layout engine
+        function toggleLayout(layout) {
+            if (currentLayout === layout || isTransitioning) return;
+            currentLayout = layout;
+            isTransitioning = true;
+
+            document.querySelectorAll('.layout-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${layout === 'radial' ? 'radial' : 'orthogonal'}`).classList.add('active');
+
+            calculatePositions();
+            applyPositions();
+
+            // Smoothly redraw SVG lines during CSS transition
+            const duration = 800; // matches CSS transitions
+            const start = performance.now();
+            
+            function step() {
+                drawLines();
+                if (performance.now() - start < duration) {
+                    requestAnimationFrame(step);
+                } else {
+                    isTransitioning = false;
+                    drawLines();
+                }
+            }
+            requestAnimationFrame(step);
+        }
+
+        // Setup DOM nodes
+        function renderNodes() {
+            // Clear existing leaf nodes
+            document.querySelectorAll('.node-leaf').forEach(el => el.remove());
+
+            const query = document.getElementById('nodeSearch').value.toLowerCase();
+
+            actors.forEach(actor => {
+                const matchesFilter = (activeF === 'all' || actor.priority === activeF);
+                const matchesSearch = actor.name.toLowerCase().includes(query) || 
+                                      actor.services.toLowerCase().includes(query);
+
+                if (matchesFilter && matchesSearch) {
+                    const el = document.createElement('div');
+                    let zoneClass = 'sadar';
+                    if (actor.upazila === 'Debhata') zoneClass = 'debhata';
+                    if (actor.upazila === 'Ashashuni') zoneClass = 'ashashuni';
+
+                    const isDimmed = selNodeId !== null && selNodeId !== actor.id;
+
+                    el.className = `node node-leaf ${zoneClass} ${selNodeId === actor.id ? 'active' : ''} ${isDimmed ? 'dimmed' : ''}`;
+                    el.id = `node-${actor.id}`;
+                    el.style.left = `${actor.x}px`;
+                    el.style.top = `${actor.y}px`;
+                    el.onclick = (e) => {
+                        e.stopPropagation();
+                        selectNode(actor);
+                    };
+
+                    el.innerHTML = `
+                        <span class="priority-dot ${actor.priority}"></span>
+                        <span style="z-index:2">${actor.emoji}</span>
+                        <div class="node-tooltip">${actor.name} (${actor.short})</div>
+                    `;
+
+                    nodesLayer.appendChild(el);
+                }
+            });
+        }
+
+        function drawLines() {
+            const svg = document.getElementById('network-svg');
+            svg.innerHTML = '';
+
+            const query = document.getElementById('nodeSearch').value.toLowerCase();
+
+            // 1. Center to Upazila Hubs
+            const hubs = [
+                { id: "hub-sadar", zone: "sadar" },
+                { id: "hub-debhata", zone: "debhata" },
+                { id: "hub-ashashuni", zone: "ashashuni" }
+            ];
+
+            hubs.forEach(h => {
+                const hubEl = document.getElementById(h.id);
+                if (!hubEl) return;
+                const hubRect = hubEl.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+                
+                // Get Hub coords relative to canvas
+                const hubX = (hubRect.left - containerRect.left) / zoomVal;
+                const hubY = (hubRect.top - containerRect.top) / zoomVal + (hubRect.height / 2) / zoomVal;
+
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', centerCoords.x);
+                line.setAttribute('y1', centerCoords.y);
+                line.setAttribute('x2', hubX);
+                line.setAttribute('y2', hubY);
+                line.setAttribute('class', `edge ${h.zone}`);
+                svg.appendChild(line);
+            });
+
+            // 2. Hubs to Leaf Nodes
+            actors.forEach(actor => {
+                const matchesFilter = (activeF === 'all' || actor.priority === activeF);
+                const matchesSearch = actor.name.toLowerCase().includes(query) || 
+                                      actor.services.toLowerCase().includes(query);
+
+                if (matchesFilter && matchesSearch) {
+                    let zone = 'sadar';
+                    if (actor.upazila === 'Debhata') zone = 'debhata';
+                    if (actor.upazila === 'Ashashuni') zone = 'ashashuni';
+
+                    const isSelected = selNodeId === actor.id;
+                    const isDimmed = selNodeId !== null && !isSelected;
+
+                    const leafEl = document.getElementById(`node-${actor.id}`);
+                    if (!leafEl) return;
+                    const leafRect = leafEl.getBoundingClientRect();
+                    const containerRect = container.getBoundingClientRect();
+
+                    const currentLeafX = (leafRect.left - containerRect.left) / zoomVal + (leafRect.width / 2) / zoomVal;
+                    const currentLeafY = (leafRect.top - containerRect.top) / zoomVal + (leafRect.height / 2) / zoomVal;
+
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line.setAttribute('x1', actor.px);
+                    line.setAttribute('y1', actor.py);
+                    line.setAttribute('x2', currentLeafX);
+                    line.setAttribute('y2', currentLeafY);
+                    line.setAttribute('class', `edge ${zone} ${isSelected ? 'highlighted' : ''} ${isDimmed ? 'dimmed' : ''}`);
+                    
+                    line.style.cursor = 'pointer';
+                    line.style.pointerEvents = 'stroke';
+                    line.onclick = () => selectNode(actor);
+                    svg.appendChild(line);
+
+                    // Add animated marching dots
+                    const pulse = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    pulse.setAttribute('x1', actor.px);
+                    pulse.setAttribute('y1', actor.py);
+                    pulse.setAttribute('x2', currentLeafX);
+                    pulse.setAttribute('y2', currentLeafY);
+                    pulse.setAttribute('class', `edge edge-pulse ${zone} ${isDimmed ? 'dimmed' : ''}`);
+                    svg.appendChild(pulse);
+                }
+            });
+        }
+
+        // Select node and center focus
+        function selectNode(actor) {
+            selNodeId = actor.id;
+            renderNodes();
+            drawLines();
+            openPanel(actor);
+            centerOnNode(actor);
+        }
+
+        // Smooth Auto-Center on Selected Node
+        function centerOnNode(actor) {
+            const viewRect = viewPort.getBoundingClientRect();
+            zoomVal = 1.15; // Zoom in to focus
+            pX = (viewRect.width / 2) - (actor.x * zoomVal);
+            pY = (viewRect.height / 2) - (actor.y * zoomVal);
+            updateTransform();
+        }
+
+        function openPanel(actor) {
+            document.getElementById('panel-title').innerText = actor.name;
+            document.getElementById('panel-type').innerText = actor.type;
+            document.getElementById('panel-upazila').innerText = actor.upazila;
+            document.getElementById('panel-priority-text').innerText = actor.priority.toUpperCase();
+            
+            const dot = document.getElementById('panel-priority-dot');
+            dot.className = `priority-dot ${actor.priority}`;
+
+            document.getElementById('panel-services').innerText = actor.services;
+            document.getElementById('panel-gender').innerText = actor.women;
+
+            const checklist = document.getElementById('panel-checklists');
+            checklist.innerHTML = '';
+
+            if (actor.safeguarding && actor.safeguarding.length > 0) {
+                actor.safeguarding.forEach(item => {
+                    const div = document.createElement('div');
+                    const isWarning = item.toLowerCase().includes('upgrade') || item.toLowerCase().includes('alert') || item.toLowerCase().includes('gap') || item.toLowerCase().includes('required');
+                    div.className = `checkbox-item ${isWarning ? 'warning' : 'checked'}`;
+                    
+                    const icon = isWarning 
+                        ? `<svg style="width:18px;height:18px;fill:currentColor;flex-shrink:0" viewBox="0 0 24 24"><path d="M12,2L1,21H23L12,2M12,6L19.53,19H4.47L12,6M11,10V14H13V10H11M11,16V18H13V16H11Z"/></svg>`
+                        : `<svg style="width:18px;height:18px;fill:currentColor;flex-shrink:0" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"/></svg>`;
+
+                    div.innerHTML = `${icon} <span>${item}</span>`;
+                    checklist.appendChild(div);
+                });
+            } else {
+                checklist.innerHTML = '<div style="color:var(--text-secondary); font-size:0.9rem">No specific safeguarding items.</div>';
+            }
+
+            document.getElementById('detail-panel').classList.add('open');
+            document.getElementById('panel-overlay').classList.add('open');
+        }
+
+        function closePanel() {
+            document.getElementById('detail-panel').classList.remove('open');
+            document.getElementById('panel-overlay').classList.remove('open');
+            selNodeId = null;
+            renderNodes();
+            drawLines();
+        }
+
+        // Viewport Dragging and Scrolling
+        viewPort.addEventListener('mousedown', (e) => {
+            if (e.target.closest('.node') || e.target.closest('button') || e.target.closest('input') || e.target.closest('.floating-widget')) return;
+            isDragging = true;
+            startX = e.clientX - pX;
+            startY = e.clientY - pY;
+            viewPort.style.cursor = 'grabbing';
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            pX = e.clientX - startX;
+            pY = e.clientY - startY;
+            updateTransform();
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            viewPort.style.cursor = 'grab';
+        });
+
+        viewPort.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const factor = 0.05;
+            if (e.deltaY < 0) {
+                zoomVal = Math.min(zoomVal + factor, 2.0);
+            } else {
+                zoomVal = Math.max(zoomVal - factor, 0.4);
+            }
+            updateTransform();
+        }, { passive: false });
+
+        function zoomIn() {
+            zoomVal = Math.min(zoomVal + 0.1, 2.0);
+            updateTransform();
+        }
+
+        function zoomOut() {
+            zoomVal = Math.max(zoomVal - 0.1, 0.4);
+            updateTransform();
+        }
+
+        function zoomReset() {
+            zoomVal = 0.95;
+            // Center the container
+            const viewRect = viewPort.getBoundingClientRect();
+            pX = (viewRect.width / 2) - 1000 * zoomVal;
+            pY = (viewRect.height / 2) - 1000 * zoomVal;
+            updateTransform();
+        }
+
+        function updateTransform() {
+            container.style.transform = `translate(${pX}px, ${pY}px) scale(${zoomVal})`;
+            drawLines();
+        }
+
+        function applyFilter(f) {
+            activeF = f;
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.classList.remove('active');
+                if (b.dataset.filter === f) b.classList.add('active');
+            });
+            renderNodes();
+            drawLines();
+        }
+
+        function handleSearch() {
+            renderNodes();
+            drawLines();
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            calculatePositions();
+            applyPositions();
+            renderNodes();
+            zoomReset();
+        });
+    </script>
+</body>
+</html>
