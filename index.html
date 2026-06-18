@@ -1059,10 +1059,9 @@
 
         // Smooth Auto-Center on Selected Node
         function centerOnNode(actor) {
-            const viewRect = viewPort.getBoundingClientRect();
             zoomVal = 1.15; // Zoom in to focus
-            pX = (viewRect.width / 2) - (actor.x * zoomVal);
-            pY = (viewRect.height / 2) - (actor.y * zoomVal);
+            pX = (1000 - actor.x) * zoomVal;
+            pY = (1000 - actor.y) * zoomVal;
             updateTransform();
         }
 
@@ -1161,8 +1160,8 @@
                 zoomVal = Math.min(viewRect.width / 1200, viewRect.height / 1200);
                 zoomVal = Math.max(Math.min(zoomVal, 1.0), 0.5);
             }
-            pX = (viewRect.width / 2) - 1000 * zoomVal;
-            pY = (viewRect.height / 2) - 1000 * zoomVal;
+            pX = 0;
+            pY = 0;
             updateTransform();
         }
 
