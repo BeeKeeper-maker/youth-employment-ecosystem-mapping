@@ -352,6 +352,16 @@
             cursor: pointer;
             z-index: 8;
             font-size: 1.3rem; /* Emoji size */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .node-logo-img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+            z-index: 2;
         }
 
         .node-leaf.sadar { border-color: var(--sadar); }
@@ -913,7 +923,7 @@
         const actors = [
             // Satkhira Sadar
             { id: "s1", name: "TTC Satkhira", short: "TTC", upazila: "Satkhira Sadar", type: "Government Training", priority: "now", emoji: "🏛️", services: "Garment manufacturing, computer operator courses; dedicated job placement cell; Walton/RFL links; job fairs.", women: "Separate toilets, prayer room, grievance box, and residential facilities.", safeguarding: ["Placement Cell", "Separate Washrooms"] },
-            { id: "s2", name: "Rishilpi Foundation", short: "Rishilpi", upazila: "Satkhira Sadar", type: "Social Enterprise", priority: "now", emoji: "🤝", services: "Nakshi Kantha, Jute/straw crafts; home-based production delivery & product collection.", women: "Highly inclusive home-based model; PWD friendly; sexual harassment response policies.", safeguarding: ["Home Delivery", "PWD Friendly", "Anti-harassment code"] },
+            { id: "s2", name: "Rishilpi Foundation", short: "Rishilpi", upazila: "Satkhira Sadar", type: "Social Enterprise", priority: "now", emoji: "🤝", logo: "rishilpi_logo.png", services: "Nakshi Kantha, Jute/straw crafts; home-based production delivery & product collection.", women: "Highly inclusive home-based model; PWD friendly; sexual harassment response policies.", safeguarding: ["Home Delivery", "PWD Friendly", "Anti-harassment code"] },
             { id: "s3", name: "DYD Sadar", short: "DYD", upazila: "Satkhira Sadar", type: "Govt Training", priority: "now", emoji: "🏛️", services: "Livestock rearing, agriculture, computer packages; microcredit loans.", women: "Low course fees; separate toilets; fee waivers for disabled candidates.", safeguarding: ["Govt Loans", "Subsidized Fees"] },
             { id: "s4", name: "DWA Sadar", short: "DWA", upazila: "Satkhira Sadar", type: "Govt Empowerment", priority: "now", emoji: "🏛️", services: "Tailoring, beauty parlor, computer, small business; legal aid & GBV referral.", women: "Direct gender mandate; counseling rooms; daycare centers advocacy.", safeguarding: ["GBV Referral", "Legal Counseling"] },
             { id: "s5", name: "BSCIC Satkhira", short: "BSCIC", upazila: "Satkhira Sadar", type: "Govt SME", priority: "now", emoji: "🏛️", services: "5% low-interest loans, plot allocations, trade fair mentoring.", women: "30% women priority quota for industrial plots and credit.", safeguarding: ["30% Plot Quota", "Low Interest"] },
@@ -1176,9 +1186,13 @@
                         if (p) p.classList.remove('hovered');
                     };
 
+                    const innerContent = actor.logo 
+                        ? `<img src="${actor.logo}" class="node-logo-img" alt="${actor.short}">`
+                        : `<span style="z-index:2">${actor.emoji}</span>`;
+
                     el.innerHTML = `
                         <span class="priority-dot ${actor.priority}"></span>
-                        <span style="z-index:2">${actor.emoji}</span>
+                        ${innerContent}
                         <div class="node-tooltip">${actor.name}</div>
                     `;
 
