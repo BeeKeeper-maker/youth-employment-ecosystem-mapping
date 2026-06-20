@@ -226,14 +226,14 @@
         .edge.debhata { stroke: rgba(124, 58, 237, 0.25); }
         .edge.ashashuni { stroke: rgba(234, 88, 12, 0.25); }
 
-        .edge.highlighted {
+        .edge.highlighted, .edge.hovered {
             stroke-width: 5.5;
             filter: drop-shadow(0 0 5px currentColor);
             opacity: 1 !important;
         }
-        .edge.sadar.highlighted { stroke: var(--sadar); }
-        .edge.debhata.highlighted { stroke: var(--debhata); }
-        .edge.ashashuni.highlighted { stroke: var(--ashashuni); }
+        .edge.sadar.highlighted, .edge.sadar.hovered { stroke: var(--sadar); }
+        .edge.debhata.highlighted, .edge.debhata.hovered { stroke: var(--debhata); }
+        .edge.ashashuni.highlighted, .edge.ashashuni.hovered { stroke: var(--ashashuni); }
 
         .edge.dimmed {
             opacity: 0.08;
@@ -246,8 +246,23 @@
             opacity: 0.6;
         }
 
+        .edge-pulse.highlighted, .edge-pulse.hovered {
+            stroke-dasharray: 6, 8;
+            animation: flow 6s linear infinite;
+            stroke-width: 2.5;
+            opacity: 0.95;
+            filter: drop-shadow(0 0 3px currentColor);
+        }
+
         @keyframes flow {
             to { stroke-dashoffset: -1000; }
+        }
+
+        .node-leaf.hovered-by-line {
+            transform: translate(-50%, -50%) scale(1.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            z-index: 25;
+            background: #ffffff;
         }
 
         /* HTML Nodes Layer */
@@ -313,6 +328,14 @@
             z-index: 9;
             font-weight: 800;
             font-size: 0.95rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s, background 0.3s, opacity 0.3s;
+        }
+
+        .node-hub:hover, .node-hub.active {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            z-index: 20;
         }
 
         .node-hub.sadar { border-color: var(--sadar); color: var(--sadar); }
@@ -342,8 +365,9 @@
             background: #ffffff;
         }
 
-        .node-leaf.dimmed {
-            opacity: 0.25;
+        .node-leaf.dimmed, .node-hub.dimmed, .node-center.dimmed {
+            opacity: 0.15;
+            pointer-events: none;
         }
 
         /* Priority Dot ring indicators */
@@ -361,32 +385,37 @@
         .priority-dot.next { background-color: var(--priority-next); }
         .priority-dot.later { background-color: var(--priority-later); }
 
-        /* Floating HTML Tooltips on Hover */
+        /* Premium Permanent Labels */
         .node-tooltip {
             position: absolute;
-            top: 72px;
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid var(--border-color);
-            padding: 0.35rem 0.75rem;
-            border-radius: 10px;
-            font-size: 0.75rem;
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid rgba(203, 213, 225, 0.85);
+            padding: 0.25rem 0.55rem;
+            border-radius: 6px;
+            font-size: 0.72rem;
             font-weight: 700;
             white-space: nowrap;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.06);
             pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.2s;
-            color: var(--text-primary);
-            z-index: 30;
+            color: #334155;
+            transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.25s;
+            z-index: 5;
         }
 
-        .node-leaf:hover .node-tooltip {
-            opacity: 1;
+        /* Hover & Active States for Node Labels */
+        .node-leaf:hover .node-tooltip,
+        .node-leaf.active .node-tooltip,
+        .node-leaf.hovered-by-line .node-tooltip {
+            background: #0f172a;
+            color: #ffffff;
+            border-color: #0f172a;
+            box-shadow: 0 6px 15px rgba(15, 23, 42, 0.18);
+            z-index: 10;
         }
 
         /* Floating HUD Widgets */
         .floating-widget {
-            position: fixed;
+            position: absolute;
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
             border: 1px solid var(--border-color);
@@ -398,8 +427,8 @@
 
         /* Legend Panel */
         .legend-panel {
-            bottom: 2rem;
-            left: 2rem;
+            bottom: 1.5rem;
+            left: 1.5rem;
             width: 260px;
             display: flex;
             flex-direction: column;
@@ -439,8 +468,8 @@
 
         /* Stats Panel */
         .stats-panel {
-            top: 8.5rem;
-            left: 2rem;
+            top: 1.5rem;
+            left: 1.5rem;
             width: 200px;
             display: flex;
             flex-direction: column;
@@ -462,9 +491,9 @@
 
         /* Zoom controls */
         .zoom-controls {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
@@ -497,100 +526,189 @@
             fill: currentColor;
         }
 
-        /* Detail Sidebar Panel */
+        /* Detail Sidebar Panel Premium Styles */
         .detail-panel {
             position: fixed;
             top: 0;
-            right: -460px;
-            width: 440px;
+            right: -480px;
+            width: 460px;
             height: 100%;
             background: #ffffff;
             border-left: 1px solid var(--border-color);
-            box-shadow: -10px 0 35px rgba(148, 163, 184, 0.15);
+            box-shadow: -15px 0 40px rgba(15, 23, 42, 0.08);
             z-index: 100;
-            padding: 3rem 2rem;
+            padding: 0;
             transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
 
         .detail-panel.open {
             right: 0;
         }
 
-        .panel-close {
-            position: absolute;
-            top: 1.5rem;
-            left: 1.5rem;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 0.9rem;
+        .panel-header-bar {
+            padding: 1.25rem 1.5rem;
+            background: #ffffff;
+            border-bottom: 1px solid #f1f5f9;
             display: flex;
             align-items: center;
-            gap: 0.25rem;
+            justify-content: space-between;
+        }
+
+        .panel-close-btn {
+            background: #f1f5f9;
+            border: none;
+            padding: 0.4rem 0.85rem;
+            border-radius: 20px;
+            color: #475569;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
             font-weight: 700;
+            transition: all 0.2s;
         }
 
-        .panel-close:hover {
-            color: black;
+        .panel-close-btn:hover {
+            background: #e2e8f0;
+            color: #0f172a;
         }
 
-        .panel-header {
-            margin-top: 1rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1.5rem;
+        .panel-scroll-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .panel-title-section {
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 1rem;
         }
 
         .panel-title {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 800;
             color: #0f172a;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
+            line-height: 1.25;
         }
 
-        .panel-meta-tag {
+        .panel-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .panel-badge {
             font-size: 0.72rem;
             font-weight: 700;
             padding: 0.25rem 0.6rem;
-            border-radius: 6px;
-            background: rgba(0, 0, 0, 0.04);
-            color: var(--text-secondary);
-            display: inline-block;
+            border-radius: 30px;
+            background: #f1f5f9;
+            color: #475569;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
         }
 
-        .panel-section {
-            margin-bottom: 1.75rem;
+        .panel-badge.upazila-badge.sadar { background: rgba(13, 148, 136, 0.08); color: var(--sadar); }
+        .panel-badge.upazila-badge.debhata { background: rgba(124, 58, 237, 0.08); color: var(--debhata); }
+        .panel-badge.upazila-badge.ashashuni { background: rgba(234, 88, 12, 0.08); color: var(--ashashuni); }
+
+        /* Priority Status Pill */
+        .panel-badge.priority-badge.now { background: rgba(218, 31, 38, 0.08); color: var(--sci-red); }
+        .panel-badge.priority-badge.next { background: rgba(245, 158, 11, 0.08); color: #d97706; }
+        .panel-badge.priority-badge.later { background: rgba(16, 185, 129, 0.08); color: #10b981; }
+
+        .panel-section-compact {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
-        .panel-label {
+        .panel-section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding-bottom: 0.25rem;
+        }
+
+        .panel-section-icon {
+            font-size: 1rem;
+        }
+
+        .panel-section-label {
             font-size: 0.75rem;
             font-weight: 800;
-            color: var(--sci-red);
+            color: #64748b;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 0.4rem;
+            letter-spacing: 1px;
         }
 
-        .panel-value {
-            font-size: 0.92rem;
+        /* Bullet List styling for services/gender */
+        .detail-bullet-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .detail-bullet-item {
+            position: relative;
+            padding-left: 1.1rem;
+            margin-bottom: 0.4rem;
+            font-size: 0.88rem;
+            line-height: 1.45;
             color: #334155;
-            line-height: 1.6;
             font-weight: 500;
         }
 
-        .checkbox-item {
-            display: flex;
-            align-items: start;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-            font-size: 0.88rem;
-            font-weight: 600;
+        .detail-bullet-item::before {
+            content: "•";
+            position: absolute;
+            left: 0.2rem;
+            color: var(--sci-red);
+            font-weight: bold;
+            font-size: 1rem;
         }
 
-        .checkbox-item.checked { color: #059669; }
-        .checkbox-item.warning { color: #d97706; }
+        .detail-bullet-item.gender-bullet::before {
+            color: #ec4899;
+        }
+
+        /* Checklist row style (horizontal badges instead of vertical boxes) */
+        .premium-checklist-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .checklist-badge-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.35rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid transparent;
+        }
+
+        .checklist-badge-item.checked {
+            background: rgba(5, 150, 105, 0.06);
+            color: #047857;
+            border-color: rgba(5, 150, 105, 0.12);
+        }
+
+        .checklist-badge-item.warning {
+            background: rgba(217, 119, 6, 0.06);
+            color: #b45309;
+            border-color: rgba(217, 119, 6, 0.12);
+        }
 
         .overlay {
             position: fixed;
@@ -636,8 +754,8 @@
             </div>
 
             <div class="layout-toggle-group">
-                <button class="layout-btn active" id="btn-radial" onclick="toggleLayout('radial')">Radial Map</button>
-                <button class="layout-btn" id="btn-orthogonal" onclick="toggleLayout('columns')">Mind-map Columns</button>
+                <button class="layout-btn" id="btn-radial" onclick="toggleLayout('radial')">Radial Map</button>
+                <button class="layout-btn active" id="btn-orthogonal" onclick="toggleLayout('columns')">Mind-map Columns</button>
             </div>
         </div>
         
@@ -651,7 +769,7 @@
 
     <!-- Map Viewport -->
     <div class="viewport" id="viewport">
-        <div class="network-container" id="network-container">
+        <div class="network-container layout-columns" id="network-container">
             <!-- Dynamic Edge SVG Canvas -->
             <svg class="network-svg" id="network-svg"></svg>
             
@@ -674,85 +792,99 @@
                 </div>
 
                 <!-- Upazila hubs -->
-                <div class="node node-hub sadar" id="hub-sadar">Satkhira Sadar</div>
-                <div class="node node-hub debhata" id="hub-debhata">Debhata</div>
-                <div class="node node-hub ashashuni" id="hub-ashashuni">Ashashuni</div>
+                <div class="node node-hub sadar" id="hub-sadar" onclick="selectHub('sadar', event)">Satkhira Sadar</div>
+                <div class="node node-hub debhata" id="hub-debhata" onclick="selectHub('debhata', event)">Debhata</div>
+                <div class="node node-hub ashashuni" id="hub-ashashuni" onclick="selectHub('ashashuni', event)">Ashashuni</div>
             </div>
         </div>
-    </div>
 
-    <!-- Floating Stats HUD -->
-    <div class="floating-widget stats-panel">
-        <div class="legend-title">Ecosystem Stats</div>
-        <div class="stat-row"><span>Total Stakeholders</span> <span id="stat-total">29</span></div>
-        <div class="stat-row"><span>Satkhira Sadar</span> <span>12</span></div>
-        <div class="stat-row"><span>Debhata</span> <span>8</span></div>
-        <div class="stat-row"><span>Ashashuni</span> <span>9</span></div>
-        <div class="stat-row"><span>NOW Priority</span> <span style="color:var(--priority-now)">17</span></div>
-    </div>
+        <!-- Floating Stats HUD -->
+        <div class="floating-widget stats-panel">
+            <div class="legend-title">Ecosystem Stats</div>
+            <div class="stat-row"><span>Total Stakeholders</span> <span id="stat-total">29</span></div>
+            <div class="stat-row"><span>Satkhira Sadar</span> <span>12</span></div>
+            <div class="stat-row"><span>Debhata</span> <span>8</span></div>
+            <div class="stat-row"><span>Ashashuni</span> <span>9</span></div>
+            <div class="stat-row"><span>NOW Priority</span> <span style="color:var(--priority-now)">17</span></div>
+        </div>
 
-    <!-- Floating Legend Panel -->
-    <div class="floating-widget legend-panel">
-        <div class="legend-title">Upazila Channels</div>
-        <div class="legend-row"><span class="legend-color" style="background:var(--sadar)"></span> Satkhira Sadar (Teal)</div>
-        <div class="legend-row"><span class="legend-color" style="background:var(--debhata)"></span> Debhata Upazila (Purple)</div>
-        <div class="legend-row"><span class="legend-color" style="background:var(--ashashuni)"></span> Ashashuni Upazila (Orange)</div>
-        
-        <div class="legend-title" style="margin-top:0.4rem">Strategic Tiers</div>
-        <div class="legend-row"><span class="legend-priority now"></span> NOW Tier (Immediate Engagement)</div>
-        <div class="legend-row"><span class="legend-priority next"></span> NEXT Tier (Refit / Future Link)</div>
-        <div class="legend-row"><span class="legend-priority later"></span> LATER Tier (Long Term / Gated)</div>
-    </div>
+        <!-- Floating Legend Panel -->
+        <div class="floating-widget legend-panel">
+            <div class="legend-title">Upazila Channels</div>
+            <div class="legend-row"><span class="legend-color" style="background:var(--sadar)"></span> Satkhira Sadar (Teal)</div>
+            <div class="legend-row"><span class="legend-color" style="background:var(--debhata)"></span> Debhata Upazila (Purple)</div>
+            <div class="legend-row"><span class="legend-color" style="background:var(--ashashuni)"></span> Ashashuni Upazila (Orange)</div>
+            
+            <div class="legend-title" style="margin-top:0.4rem">Strategic Tiers</div>
+            <div class="legend-row"><span class="legend-priority now"></span> NOW Tier (Immediate Engagement)</div>
+            <div class="legend-row"><span class="legend-priority next"></span> NEXT Tier (Refit / Future Link)</div>
+            <div class="legend-row"><span class="legend-priority later"></span> LATER Tier (Long Term / Gated)</div>
+        </div>
 
-    <!-- Floating Zoom HUD Controls -->
-    <div class="zoom-controls">
-        <button class="zoom-btn" onclick="zoomIn()" title="Zoom In">
-            <svg viewBox="0 0 24 24"><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/></svg>
-        </button>
-        <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">
-            <svg viewBox="0 0 24 24"><path d="M19,13H5V11H19V13Z"/></svg>
-        </button>
-        <button class="zoom-btn" onclick="zoomReset()" title="Reset & Center View">
-            <svg viewBox="0 0 24 24"><path d="M12,4C14.21,4 16,5.79 16,8C16,9.5 15,11 13.5,12.2C12.7,12.9 12,13.9 12,15H10C10,13 11,11.5 12,10.5C13,9.5 14,8.9 14,8C14,6.9 13.1,6 12,6C10.9,6 10,6.9 10,8H8C8,5.79 9.79,4 12,4M11,17H13V19H11V17Z"/></svg>
-        </button>
+        <!-- Floating Zoom HUD Controls -->
+        <div class="zoom-controls">
+            <button class="zoom-btn" onclick="zoomIn()" title="Zoom In">
+                <svg viewBox="0 0 24 24"><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/></svg>
+            </button>
+            <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">
+                <svg viewBox="0 0 24 24"><path d="M19,13H5V11H19V13Z"/></svg>
+            </button>
+            <button class="zoom-btn" onclick="zoomReset()" title="Reset & Center View">
+                <svg viewBox="0 0 24 24"><path d="M12,4C14.21,4 16,5.79 16,8C16,9.5 15,11 13.5,12.2C12.7,12.9 12,13.9 12,15H10C10,13 11,11.5 12,10.5C13,9.5 14,8.9 14,8C14,6.9 13.1,6 12,6C10.9,6 10,6.9 10,8H8C8,5.79 9.79,4 12,4M11,17H13V19H11V17Z"/></svg>
+            </button>
+        </div>
     </div>
 
     <!-- Sliding Sidebar Details Panel -->
     <div class="overlay" id="panel-overlay" onclick="closePanel()"></div>
     <div class="detail-panel" id="detail-panel">
-        <button class="panel-close" onclick="closePanel()">
-            <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.16L13.5,5.58L8,11H20Z"/></svg>
-            Back to Map
-        </button>
-        
-        <div class="panel-header">
-            <h3 class="panel-title" id="panel-title">Actor Name</h3>
-            <span class="panel-meta-tag" id="panel-type">Type</span>
-            <span class="panel-meta-tag" id="panel-upazila" style="margin-left: 0.5rem;">Upazila</span>
+        <div class="panel-header-bar">
+            <button class="panel-close-btn" onclick="closePanel()">
+                <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.16L13.5,5.58L8,11H20Z"/></svg>
+                Back to Map
+            </button>
         </div>
-
-        <div class="panel-section">
-            <div class="panel-label">Strategic Priority</div>
-            <div class="panel-value" style="display:flex; align-items:center; gap:0.5rem; font-weight:800;" id="panel-priority-box">
-                <span class="priority-dot now" id="panel-priority-dot" style="position:static;"></span>
-                <span id="panel-priority-text">NOW</span>
+        
+        <div class="panel-scroll-content">
+            <div class="panel-title-section">
+                <h3 class="panel-title" id="panel-title">Actor Name</h3>
+                <div class="panel-badges" id="panel-badge-row">
+                    <span class="panel-badge" id="panel-type">Type</span>
+                    <span class="panel-badge" id="panel-upazila">Upazila</span>
+                </div>
             </div>
-        </div>
 
-        <div class="panel-section">
-            <div class="panel-label">Key Services Offered</div>
-            <div class="panel-value" id="panel-services">Services list...</div>
-        </div>
+            <!-- Services Section -->
+            <div class="panel-section-compact">
+                <div class="panel-section-header">
+                    <span class="panel-section-icon">💼</span>
+                    <span class="panel-section-label">Key Services Offered</span>
+                </div>
+                <ul class="detail-bullet-list" id="panel-services-list">
+                    <!-- Dynamic bullet list -->
+                </ul>
+            </div>
 
-        <div class="panel-section">
-            <div class="panel-label">Gender-Sensitive Practices</div>
-            <div class="panel-value" id="panel-gender">Gender aspects...</div>
-        </div>
-        
-        <div class="panel-section">
-            <div class="panel-label">Safeguarding & Inclusion Status</div>
-            <div id="panel-checklists">
-                <!-- Checklist items -->
+            <!-- Gender Section -->
+            <div class="panel-section-compact">
+                <div class="panel-section-header">
+                    <span class="panel-section-icon">⚖️</span>
+                    <span class="panel-section-label">Gender-Sensitive Practices</span>
+                </div>
+                <ul class="detail-bullet-list" id="panel-gender-list">
+                    <!-- Dynamic bullet list -->
+                </ul>
+            </div>
+            
+            <!-- Safeguarding Section -->
+            <div class="panel-section-compact">
+                <div class="panel-section-header">
+                    <span class="panel-section-icon">🛡️</span>
+                    <span class="panel-section-label">Safeguarding & Inclusion Status</span>
+                </div>
+                <div class="premium-checklist-row" id="panel-checklists-premium">
+                    <!-- Checklist items -->
+                </div>
             </div>
         </div>
     </div>
@@ -800,7 +932,8 @@
         let pY = 0;
         let activeF = 'all';
         let selNodeId = null;
-        let currentLayout = 'radial'; // 'radial' or 'columns'
+        let selHub = null;
+        let currentLayout = 'columns'; // 'radial' or 'columns'
         let isTransitioning = false;
 
         const container = document.getElementById('network-container');
@@ -877,7 +1010,7 @@
             });
         }
 
-        // Apply target coordinates to node DOM elements
+        // Apply target coordinates to node DOM elements and calculate radial label fanning
         function applyPositions() {
             positionNode('hub-sadar', hubsData.sadar.x, hubsData.sadar.y);
             positionNode('hub-debhata', hubsData.debhata.x, hubsData.debhata.y);
@@ -890,6 +1023,47 @@
                 if (el) {
                     el.style.left = `${actor.x}px`;
                     el.style.top = `${actor.y}px`;
+
+                    const tooltip = el.querySelector('.node-tooltip');
+                    if (tooltip) {
+                        if (currentLayout === 'radial') {
+                            // Radial layout fanning
+                            const dx = actor.x - actor.px;
+                            const dy = actor.y - actor.py;
+                            const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+                            const ux = dx / dist;
+                            const uy = dy / dist;
+
+                            // Push label outwards from the node's edge (node radius is 32.5px, label offset is 48px from node center)
+                            const offset = 48;
+                            const lx = ux * offset;
+                            const ly = uy * offset;
+
+                            // Align text anchor to prevent overlapping back into the node circle
+                            let tx = '-50%';
+                            let ty = '-50%';
+                            if (ux > 0.4) {
+                                tx = '0%'; // Left aligned (flows right)
+                            } else if (ux < -0.4) {
+                                tx = '-100%'; // Right aligned (flows left)
+                            }
+
+                            tooltip.style.left = `calc(50% + ${lx}px)`;
+                            tooltip.style.top = `calc(50% + ${ly}px)`;
+                            tooltip.style.transform = `translate(${tx}, ${ty})`;
+                        } else {
+                            // Column layout fanning
+                            tooltip.style.top = '50%';
+                            tooltip.style.transform = 'translateY(-50%)';
+                            if (actor.upazila === 'Satkhira Sadar') {
+                                tooltip.style.left = 'auto';
+                                tooltip.style.right = '76px';
+                            } else {
+                                tooltip.style.left = '76px';
+                                tooltip.style.right = 'auto';
+                            }
+                        }
+                    }
                 }
             });
         }
@@ -911,8 +1085,12 @@
             document.querySelectorAll('.layout-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`btn-${layout === 'radial' ? 'radial' : 'orthogonal'}`).classList.add('active');
 
+            // Toggle layout class for premium tooltip transitions
+            container.className = `network-container layout-${layout === 'radial' ? 'radial' : 'columns'}`;
+
             calculatePositions();
             applyPositions();
+            zoomReset();
 
             // Smoothly redraw SVG lines during CSS transition
             const duration = 800; // matches CSS transitions
@@ -948,7 +1126,12 @@
                     if (actor.upazila === 'Debhata') zoneClass = 'debhata';
                     if (actor.upazila === 'Ashashuni') zoneClass = 'ashashuni';
 
-                    const isDimmed = selNodeId !== null && selNodeId !== actor.id;
+                    let isDimmed = false;
+                    if (selNodeId !== null && selNodeId !== actor.id) {
+                        isDimmed = true;
+                    } else if (selHub !== null && zoneClass !== selHub) {
+                        isDimmed = true;
+                    }
 
                     el.className = `node node-leaf ${zoneClass} ${selNodeId === actor.id ? 'active' : ''} ${isDimmed ? 'dimmed' : ''}`;
                     el.id = `node-${actor.id}`;
@@ -959,15 +1142,32 @@
                         selectNode(actor);
                     };
 
+                    // Premium bidirectional hover: highlighting connection lines when hovering node
+                    el.onmouseenter = () => {
+                        const l = document.getElementById(`line-${actor.id}`);
+                        const p = document.getElementById(`pulse-${actor.id}`);
+                        if (l) l.classList.add('hovered');
+                        if (p) p.classList.add('hovered');
+                    };
+                    el.onmouseleave = () => {
+                        const l = document.getElementById(`line-${actor.id}`);
+                        const p = document.getElementById(`pulse-${actor.id}`);
+                        if (l) l.classList.remove('hovered');
+                        if (p) p.classList.remove('hovered');
+                    };
+
                     el.innerHTML = `
                         <span class="priority-dot ${actor.priority}"></span>
                         <span style="z-index:2">${actor.emoji}</span>
-                        <div class="node-tooltip">${actor.name} (${actor.short})</div>
+                        <div class="node-tooltip">${actor.name}</div>
                     `;
 
                     nodesLayer.appendChild(el);
                 }
             });
+            // Force browser layout reflow to populate bounding rects immediately
+            nodesLayer.offsetHeight;
+            applyPositions();
         }
 
         function drawLines() {
@@ -986,19 +1186,30 @@
             hubs.forEach(h => {
                 const hubEl = document.getElementById(h.id);
                 if (!hubEl) return;
-                const hubRect = hubEl.getBoundingClientRect();
-                const containerRect = container.getBoundingClientRect();
-                
-                // Get Hub coords relative to canvas
-                const hubX = (hubRect.left - containerRect.left) / zoomVal;
-                const hubY = (hubRect.top - containerRect.top) / zoomVal + (hubRect.height / 2) / zoomVal;
+
+                let hubX, hubY;
+                if (isTransitioning) {
+                    const hubRect = hubEl.getBoundingClientRect();
+                    const containerRect = container.getBoundingClientRect();
+                    // Get Hub coords relative to canvas during transitions
+                    hubX = (hubRect.left - containerRect.left) / zoomVal;
+                    hubY = (hubRect.top - containerRect.top) / zoomVal + (hubRect.height / 2) / zoomVal;
+                } else {
+                    // Use perfect data coordinates when stable (avoids subpixel/zoom drift)
+                    hubX = hubsData[h.zone].x;
+                    hubY = hubsData[h.zone].y;
+                }
 
                 const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
                 line.setAttribute('x1', centerCoords.x);
                 line.setAttribute('y1', centerCoords.y);
                 line.setAttribute('x2', hubX);
                 line.setAttribute('y2', hubY);
-                line.setAttribute('class', `edge ${h.zone}`);
+                let isDimmed = false;
+                if (selHub !== null && h.zone !== selHub) {
+                    isDimmed = true;
+                }
+                line.setAttribute('class', `edge ${h.zone} ${isDimmed ? 'dimmed' : ''}`);
                 svg.appendChild(line);
             });
 
@@ -1014,17 +1225,30 @@
                     if (actor.upazila === 'Ashashuni') zone = 'ashashuni';
 
                     const isSelected = selNodeId === actor.id;
-                    const isDimmed = selNodeId !== null && !isSelected;
+                    let isDimmed = false;
+                    if (selNodeId !== null && !isSelected) {
+                        isDimmed = true;
+                    } else if (selHub !== null && zone !== selHub) {
+                        isDimmed = true;
+                    }
 
                     const leafEl = document.getElementById(`node-${actor.id}`);
                     if (!leafEl) return;
-                    const leafRect = leafEl.getBoundingClientRect();
-                    const containerRect = container.getBoundingClientRect();
 
-                    const currentLeafX = (leafRect.left - containerRect.left) / zoomVal + (leafRect.width / 2) / zoomVal;
-                    const currentLeafY = (leafRect.top - containerRect.top) / zoomVal + (leafRect.height / 2) / zoomVal;
+                    let currentLeafX, currentLeafY;
+                    if (isTransitioning) {
+                        const leafRect = leafEl.getBoundingClientRect();
+                        const containerRect = container.getBoundingClientRect();
+                        currentLeafX = (leafRect.left - containerRect.left) / zoomVal + (leafRect.width / 2) / zoomVal;
+                        currentLeafY = (leafRect.top - containerRect.top) / zoomVal + (leafRect.height / 2) / zoomVal;
+                    } else {
+                        // Use perfect data coordinates when stable (avoids subpixel/zoom drift)
+                        currentLeafX = actor.x;
+                        currentLeafY = actor.y;
+                    }
 
                     const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line.id = `line-${actor.id}`;
                     line.setAttribute('x1', actor.px);
                     line.setAttribute('y1', actor.py);
                     line.setAttribute('x2', currentLeafX);
@@ -1034,15 +1258,33 @@
                     line.style.cursor = 'pointer';
                     line.style.pointerEvents = 'stroke';
                     line.onclick = () => selectNode(actor);
+
+                    // Premium bidirectional hover: highlighting node when hovering line
+                    line.onmouseenter = () => {
+                        line.classList.add('hovered');
+                        const p = document.getElementById(`pulse-${actor.id}`);
+                        if (p) p.classList.add('hovered');
+                        const nodeEl = document.getElementById(`node-${actor.id}`);
+                        if (nodeEl) nodeEl.classList.add('hovered-by-line');
+                    };
+                    line.onmouseleave = () => {
+                        line.classList.remove('hovered');
+                        const p = document.getElementById(`pulse-${actor.id}`);
+                        if (p) p.classList.remove('hovered');
+                        const nodeEl = document.getElementById(`node-${actor.id}`);
+                        if (nodeEl) nodeEl.classList.remove('hovered-by-line');
+                    };
+
                     svg.appendChild(line);
 
                     // Add animated marching dots
                     const pulse = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    pulse.id = `pulse-${actor.id}`;
                     pulse.setAttribute('x1', actor.px);
                     pulse.setAttribute('y1', actor.py);
                     pulse.setAttribute('x2', currentLeafX);
                     pulse.setAttribute('y2', currentLeafY);
-                    pulse.setAttribute('class', `edge edge-pulse ${zone} ${isDimmed ? 'dimmed' : ''}`);
+                    pulse.setAttribute('class', `edge edge-pulse ${zone} ${isSelected ? 'highlighted' : ''} ${isDimmed ? 'dimmed' : ''}`);
                     svg.appendChild(pulse);
                 }
             });
@@ -1050,7 +1292,18 @@
 
         // Select node and center focus
         function selectNode(actor) {
+            if (selNodeId === actor.id) {
+                closePanel();
+                return;
+            }
             selNodeId = actor.id;
+            selHub = null;
+
+            document.querySelectorAll('.node-hub').forEach(el => {
+                el.classList.remove('active', 'dimmed');
+            });
+            document.querySelector('.node-center').classList.remove('dimmed');
+
             renderNodes();
             drawLines();
             openPanel(actor);
@@ -1065,36 +1318,139 @@
             updateTransform();
         }
 
+        // Upazila Hub Selection and Focus
+        function selectHub(hubName, e) {
+            if (e) e.stopPropagation();
+            
+            if (selHub === hubName) {
+                deselectHub();
+                return;
+            }
+
+            selHub = hubName;
+            selNodeId = null;
+            
+            document.getElementById('detail-panel').classList.remove('open');
+            document.getElementById('panel-overlay').classList.remove('open');
+
+            document.querySelectorAll('.node-hub').forEach(el => {
+                el.classList.remove('active', 'dimmed');
+                if (el.id === `hub-${hubName}`) {
+                    el.classList.add('active');
+                } else {
+                    el.classList.add('dimmed');
+                }
+            });
+
+            document.querySelector('.node-center').classList.add('dimmed');
+
+            renderNodes();
+            drawLines();
+
+            const coords = hubsData[hubName];
+            if (coords) {
+                zoomVal = 1.15;
+                pX = (1000 - coords.x) * zoomVal;
+                pY = (1000 - coords.y) * zoomVal;
+                updateTransform();
+            }
+        }
+
+        function deselectHub() {
+            selHub = null;
+            
+            document.querySelectorAll('.node-hub').forEach(el => {
+                el.classList.remove('active', 'dimmed');
+            });
+            document.querySelector('.node-center').classList.remove('dimmed');
+
+            renderNodes();
+            drawLines();
+            zoomReset();
+        }
+
+        // Helper function to smartly split text into bullet points
+        function splitToList(text) {
+            if (!text) return [];
+            // Semicolons first
+            if (text.includes(';')) {
+                return text.split(';').map(s => s.trim()).filter(Boolean);
+            }
+            // Period separation (if there are multiple sentences)
+            if (text.includes('. ') || (text.endsWith('.') && text.split('.').length > 2)) {
+                return text.split('.').map(s => s.trim().replace(/\.$/, '')).filter(Boolean);
+            }
+            // Commas fallback
+            if (text.includes(',')) {
+                return text.split(',').map(s => s.trim()).filter(Boolean);
+            }
+            return [text.trim()];
+        }
+
         function openPanel(actor) {
             document.getElementById('panel-title').innerText = actor.name;
             document.getElementById('panel-type').innerText = actor.type;
-            document.getElementById('panel-upazila').innerText = actor.upazila;
-            document.getElementById('panel-priority-text').innerText = actor.priority.toUpperCase();
             
-            const dot = document.getElementById('panel-priority-dot');
-            dot.className = `priority-dot ${actor.priority}`;
+            const upazilaEl = document.getElementById('panel-upazila');
+            upazilaEl.innerText = actor.upazila;
+            upazilaEl.className = 'panel-badge upazila-badge';
+            if (actor.upazila === 'Satkhira Sadar') upazilaEl.classList.add('sadar');
+            else if (actor.upazila === 'Debhata') upazilaEl.classList.add('debhata');
+            else if (actor.upazila === 'Ashashuni') upazilaEl.classList.add('ashashuni');
 
-            document.getElementById('panel-services').innerText = actor.services;
-            document.getElementById('panel-gender').innerText = actor.women;
+            // Render Priority Badge inside the badge row
+            const existingPri = document.getElementById('panel-priority-badge');
+            if (existingPri) existingPri.remove();
 
-            const checklist = document.getElementById('panel-checklists');
+            const pText = actor.priority.toUpperCase();
+            const priorityBadge = document.createElement('span');
+            priorityBadge.id = 'panel-priority-badge';
+            priorityBadge.className = `panel-badge priority-badge ${actor.priority}`;
+            priorityBadge.innerHTML = `<span class="priority-dot ${actor.priority}" style="position:static; margin-right:0.25rem;"></span> ${pText} Tier`;
+            
+            document.getElementById('panel-badge-row').appendChild(priorityBadge);
+
+            // Split and render Services
+            const servicesList = document.getElementById('panel-services-list');
+            servicesList.innerHTML = '';
+            const servicesArray = splitToList(actor.services);
+            servicesArray.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'detail-bullet-item';
+                li.innerText = item.charAt(0).toUpperCase() + item.slice(1);
+                servicesList.appendChild(li);
+            });
+
+            // Split and render Gender Practices
+            const genderList = document.getElementById('panel-gender-list');
+            genderList.innerHTML = '';
+            const genderArray = splitToList(actor.women);
+            genderArray.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'detail-bullet-item gender-bullet';
+                li.innerText = item.charAt(0).toUpperCase() + item.slice(1);
+                genderList.appendChild(li);
+            });
+
+            // Render Safeguarding checklist
+            const checklist = document.getElementById('panel-checklists-premium');
             checklist.innerHTML = '';
 
             if (actor.safeguarding && actor.safeguarding.length > 0) {
                 actor.safeguarding.forEach(item => {
                     const div = document.createElement('div');
                     const isWarning = item.toLowerCase().includes('upgrade') || item.toLowerCase().includes('alert') || item.toLowerCase().includes('gap') || item.toLowerCase().includes('required');
-                    div.className = `checkbox-item ${isWarning ? 'warning' : 'checked'}`;
+                    div.className = `checklist-badge-item ${isWarning ? 'warning' : 'checked'}`;
                     
                     const icon = isWarning 
-                        ? `<svg style="width:18px;height:18px;fill:currentColor;flex-shrink:0" viewBox="0 0 24 24"><path d="M12,2L1,21H23L12,2M12,6L19.53,19H4.47L12,6M11,10V14H13V10H11M11,16V18H13V16H11Z"/></svg>`
-                        : `<svg style="width:18px;height:18px;fill:currentColor;flex-shrink:0" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"/></svg>`;
+                        ? `<svg style="width:14px;height:14px;fill:currentColor;flex-shrink:0" viewBox="0 0 24 24"><path d="M12,2L1,21H23L12,2M12,6L19.53,19H4.47L12,6M11,10V14H13V10H11M11,16V18H13V16H11Z"/></svg>`
+                        : `<svg style="width:14px;height:14px;fill:currentColor;flex-shrink:0" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"/></svg>`;
 
                     div.innerHTML = `${icon} <span>${item}</span>`;
                     checklist.appendChild(div);
                 });
             } else {
-                checklist.innerHTML = '<div style="color:var(--text-secondary); font-size:0.9rem">No specific safeguarding items.</div>';
+                checklist.innerHTML = '<div style="color:var(--text-secondary); font-size:0.8rem">No specific safeguarding items.</div>';
             }
 
             document.getElementById('detail-panel').classList.add('open');
@@ -1130,6 +1486,16 @@
             viewPort.style.cursor = 'grab';
         });
 
+        // Clear selection on background click
+        viewPort.addEventListener('click', (e) => {
+            if (e.target.closest('.node') || e.target.closest('button') || e.target.closest('input') || e.target.closest('.floating-widget') || e.target.closest('.zoom-controls')) return;
+            if (selHub) {
+                deselectHub();
+            } else if (selNodeId) {
+                closePanel();
+            }
+        });
+
         viewPort.addEventListener('wheel', (e) => {
             e.preventDefault();
             const factor = 0.05;
@@ -1154,11 +1520,11 @@
         function zoomReset() {
             const viewRect = viewPort.getBoundingClientRect();
             if (currentLayout === 'columns') {
-                zoomVal = Math.min(viewRect.width / 1800, viewRect.height / 1800);
-                zoomVal = Math.max(Math.min(zoomVal, 0.9), 0.45);
+                zoomVal = Math.min(viewRect.width / 1900, viewRect.height / 1900);
+                zoomVal = Math.max(Math.min(zoomVal, 0.95), 0.3);
             } else {
-                zoomVal = Math.min(viewRect.width / 1200, viewRect.height / 1200);
-                zoomVal = Math.max(Math.min(zoomVal, 1.0), 0.5);
+                zoomVal = Math.min(viewRect.width / 1300, viewRect.height / 1300);
+                zoomVal = Math.max(Math.min(zoomVal, 1.0), 0.4);
             }
             pX = 0;
             pY = 0;
@@ -1177,19 +1543,21 @@
                 if (b.dataset.filter === f) b.classList.add('active');
             });
             renderNodes();
+            applyPositions();
             drawLines();
         }
 
         function handleSearch() {
             renderNodes();
+            applyPositions();
             drawLines();
         }
 
         // Init
         document.addEventListener('DOMContentLoaded', () => {
             calculatePositions();
-            applyPositions();
             renderNodes();
+            applyPositions();
             zoomReset();
         });
 
