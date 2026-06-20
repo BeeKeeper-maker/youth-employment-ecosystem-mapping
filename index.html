@@ -319,28 +319,78 @@
         }
 
         /* Upazila Sub-hubs */
-        .node-hub {
-            width: 130px;
-            height: 130px;
-            background: #ffffff;
-            border: 3.5px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(148, 163, 184, 0.15);
+        .node.node-hub {
+            width: 155px;
+            height: 155px;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            border-radius: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
             z-index: 9;
             font-weight: 800;
             font-size: 0.95rem;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s, background 0.3s, opacity 0.3s;
+            transition: transform 0.3s, opacity 0.3s;
         }
 
-        .node-hub:hover, .node-hub.active {
-            transform: translate(-50%, -50%) scale(1.1);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        .node.node-hub:hover, .node.node-hub.active {
+            transform: translate(-50%, -50%) scale(1.15);
             z-index: 20;
         }
 
-        .node-hub.sadar { border-color: var(--sadar); color: var(--sadar); }
-        .node-hub.debhata { border-color: var(--debhata); color: var(--debhata); }
-        .node-hub.ashashuni { border-color: var(--ashashuni); color: var(--ashashuni); }
+        .node.node-hub.sadar {
+            background: url('sadar_map.png') no-repeat center;
+            background-size: contain;
+        }
+
+        .node.node-hub.debhata {
+            background: url('debhata_map.png') no-repeat center;
+            background-size: contain;
+        }
+
+        .node.node-hub.ashashuni {
+            background: url('ashashuni_map.png') no-repeat center;
+            background-size: contain;
+        }
+
+        .hub-label {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 0.3rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            pointer-events: none;
+            transition: all 0.2s;
+        }
+
+        .node.node-hub.sadar .hub-label {
+            color: #115e59;
+            border-color: rgba(13, 148, 136, 0.25);
+        }
+
+        .node.node-hub.debhata .hub-label {
+            color: #0284c7;
+            border-color: rgba(14, 165, 233, 0.25);
+        }
+
+        .node.node-hub.ashashuni .hub-label {
+            color: #c2410c;
+            border-color: rgba(249, 115, 22, 0.25);
+        }
+
+        .node.node-hub:hover .hub-label, .node.node-hub.active .hub-label {
+            background: #ffffff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transform: scale(1.05);
+        }
 
         /* Actor Leaf Nodes */
         .node-leaf {
@@ -822,9 +872,9 @@
                 </div>
 
                 <!-- Upazila hubs -->
-                <div class="node node-hub sadar" id="hub-sadar" onclick="selectHub('sadar', event)">Satkhira Sadar</div>
-                <div class="node node-hub debhata" id="hub-debhata" onclick="selectHub('debhata', event)">Debhata</div>
-                <div class="node node-hub ashashuni" id="hub-ashashuni" onclick="selectHub('ashashuni', event)">Ashashuni</div>
+                <div class="node node-hub sadar" id="hub-sadar" onclick="selectHub('sadar', event)"><span class="hub-label">Satkhira Sadar</span></div>
+                <div class="node node-hub debhata" id="hub-debhata" onclick="selectHub('debhata', event)"><span class="hub-label">Debhata</span></div>
+                <div class="node node-hub ashashuni" id="hub-ashashuni" onclick="selectHub('ashashuni', event)"><span class="hub-label">Ashashuni</span></div>
             </div>
         </div>
 
