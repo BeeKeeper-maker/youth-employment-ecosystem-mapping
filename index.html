@@ -628,26 +628,46 @@
         .panel-section-compact {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.65rem;
+            padding: 0.95rem 1.15rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 4px solid #64748b;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+            transition: all 0.2s ease;
+        }
+
+        .panel-section-compact.services-sec {
+            border-left-color: #6366f1; /* Indigo accent */
+        }
+
+        .panel-section-compact.gender-sec {
+            border-left-color: #db2777; /* Deep Pink accent */
+        }
+
+        .panel-section-compact.safeguarding-sec {
+            border-left-color: #0d9488; /* Teal accent */
         }
 
         .panel-section-header {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
-            padding-bottom: 0.25rem;
+            gap: 0.5rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+            padding-bottom: 0.4rem;
+            margin-bottom: 0.2rem;
         }
 
         .panel-section-icon {
-            font-size: 1rem;
+            font-size: 1.05rem;
         }
 
         .panel-section-label {
-            font-size: 0.75rem;
+            font-size: 0.78rem;
             font-weight: 800;
-            color: #64748b;
+            color: #1e293b; /* High-contrast text */
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.7px;
         }
 
         /* Bullet List styling for services/gender */
@@ -855,7 +875,7 @@
             </div>
 
             <!-- Services Section -->
-            <div class="panel-section-compact">
+            <div class="panel-section-compact services-sec">
                 <div class="panel-section-header">
                     <span class="panel-section-icon">💼</span>
                     <span class="panel-section-label">Key Services Offered</span>
@@ -866,7 +886,7 @@
             </div>
 
             <!-- Gender Section -->
-            <div class="panel-section-compact">
+            <div class="panel-section-compact gender-sec">
                 <div class="panel-section-header">
                     <span class="panel-section-icon">⚖️</span>
                     <span class="panel-section-label">Gender-Sensitive Practices</span>
@@ -877,7 +897,7 @@
             </div>
             
             <!-- Safeguarding Section -->
-            <div class="panel-section-compact">
+            <div class="panel-section-compact safeguarding-sec">
                 <div class="panel-section-header">
                     <span class="panel-section-icon">🛡️</span>
                     <span class="panel-section-label">Safeguarding & Inclusion Status</span>
