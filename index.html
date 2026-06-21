@@ -320,8 +320,8 @@
 
         /* Upazila Sub-hubs */
         .node.node-hub {
-            width: 155px;
-            height: 155px;
+            width: 500px;
+            height: 500px;
             background: transparent;
             border: none;
             box-shadow: none;
@@ -361,12 +361,12 @@
             background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(4px);
             border: 1px solid rgba(0, 0, 0, 0.08);
-            padding: 0.3rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.78rem;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 1.05rem;
             font-weight: 800;
             white-space: nowrap;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.06);
             pointer-events: none;
             transition: all 0.2s;
         }
@@ -972,39 +972,39 @@
     <script>
         const actors = [
             // Satkhira Sadar
-            { id: "s1", name: "TTC Satkhira", short: "TTC", upazila: "Satkhira Sadar", type: "Government Training", priority: "now", emoji: "🏛️", services: "Garment manufacturing, computer operator courses; dedicated job placement cell; Walton/RFL links; job fairs.", women: "Separate toilets, prayer room, grievance box, and residential facilities.", safeguarding: ["Placement Cell", "Separate Washrooms"] },
+            { id: "s1", name: "TTC Satkhira", short: "TTC", upazila: "Satkhira Sadar", type: "Government Training", priority: "now", emoji: "🏛️", logo: "ttc_logo.png", services: "Garment manufacturing, computer operator courses; dedicated job placement cell; Walton/RFL links; job fairs.", women: "Separate toilets, prayer room, grievance box, and residential facilities.", safeguarding: ["Placement Cell", "Separate Washrooms"] },
             { id: "s2", name: "Rishilpi Foundation", short: "Rishilpi", upazila: "Satkhira Sadar", type: "Social Enterprise", priority: "now", emoji: "🤝", logo: "rishilpi_logo.png", services: "Nakshi Kantha, Jute/straw crafts; home-based production delivery & product collection.", women: "Highly inclusive home-based model; PWD friendly; sexual harassment response policies.", safeguarding: ["Home Delivery", "PWD Friendly", "Anti-harassment code"] },
-            { id: "s3", name: "DYD Sadar", short: "DYD", upazila: "Satkhira Sadar", type: "Govt Training", priority: "now", emoji: "🏛️", services: "Livestock rearing, agriculture, computer packages; microcredit loans.", women: "Low course fees; separate toilets; fee waivers for disabled candidates.", safeguarding: ["Govt Loans", "Subsidized Fees"] },
-            { id: "s4", name: "DWA Sadar", short: "DWA", upazila: "Satkhira Sadar", type: "Govt Empowerment", priority: "now", emoji: "🏛️", services: "Tailoring, beauty parlor, computer, small business; legal aid & GBV referral.", women: "Direct gender mandate; counseling rooms; daycare centers advocacy.", safeguarding: ["GBV Referral", "Legal Counseling"] },
-            { id: "s5", name: "BSCIC Satkhira", short: "BSCIC", upazila: "Satkhira Sadar", type: "Govt SME", priority: "now", emoji: "🏛️", services: "5% low-interest loans, plot allocations, trade fair mentoring.", women: "30% women priority quota for industrial plots and credit.", safeguarding: ["30% Plot Quota", "Low Interest"] },
-            { id: "s6", name: "Rony Plywood", short: "Rony", upazila: "Satkhira Sadar", type: "Private Employer", priority: "now", emoji: "🏢", services: "Board finishing, cleaning, floor production; on-the-job training.", women: "Separate washrooms, CCTV, feedback boxes. No childcare daycare.", safeguarding: ["Wage Progression", "No Daycare (GAP)"] },
-            { id: "s7", name: "BWRDS", short: "BWRDS", upazila: "Satkhira Sadar", type: "NGO / Training", priority: "next", emoji: "🤝", services: "Digital marketing, freelancing, handicrafts, tailoring.", women: "Separate washrooms, breastfeeding room, prayer space.", safeguarding: ["Breastfeeding Room", "Grievance Desk"] },
-            { id: "s8", name: "Progress / Winrock", short: "Progress", upazila: "Satkhira Sadar", type: "Development Partner", priority: "next", emoji: "🤝", services: "Entrepreneurship, electrical house-wiring, sewing; survivor-sensitive.", women: "High safety protocols; strictly non-hazardous job options.", safeguarding: ["Survivor Sensitive", "Decent Work Check"] },
-            { id: "s9", name: "Rupantor", short: "Rupantor", upazila: "Satkhira Sadar", type: "NGO", priority: "next", emoji: "🤝", services: "Safe work advocacy, internships, NGO sector recruitment.", women: "Vocal gender equity commitment throughout programs.", safeguarding: ["Internships", "Equity Mandate"] },
-            { id: "s10", name: "China Bangla Food", short: "China B", upazila: "Satkhira Sadar", type: "Food Manufacturer", priority: "next", emoji: "🏢", services: "Packaging, sorting, cleaning, seasonal production.", women: "Separate washrooms. Lower wages (BDT 5500-6000) below threshold.", safeguarding: ["Low Wage Alert", "Seasonal Guard"] },
-            { id: "s11", name: "Unilever", short: "Unilever", upazila: "Satkhira Sadar", type: "MNC / FMCG", priority: "later", emoji: "🏢", services: "Sales, territory operations, HR, supply chain. Degree required.", women: "Breastfeeding rooms, paid maternity leave, travel allowances.", safeguarding: ["Degree Needed", "Maternity Leave"] },
-            { id: "s12", name: "Breaking The Silence", short: "BTS", upazila: "Satkhira Sadar", type: "Implementing Partner", priority: "now", emoji: "🔴", services: "Save the Children IP. Participant mobilization, vulnerability mapping, family gating.", women: "Trusted community actor; focus on NEET and vulnerable women.", safeguarding: ["NEET Outreach", "SCI Partner"] },
+            { id: "s3", name: "DYD Sadar", short: "DYD", upazila: "Satkhira Sadar", type: "Govt Training", priority: "now", emoji: "🏛️", logo: "dyd_logo.png", services: "Livestock rearing, agriculture, computer packages; microcredit loans.", women: "Low course fees; separate toilets; fee waivers for disabled candidates.", safeguarding: ["Govt Loans", "Subsidized Fees"] },
+            { id: "s4", name: "DWA Sadar", short: "DWA", upazila: "Satkhira Sadar", type: "Govt Empowerment", priority: "now", emoji: "🏛️", logo: "dwa_logo.png", services: "Tailoring, beauty parlor, computer, small business; legal aid & GBV referral.", women: "Direct gender mandate; counseling rooms; daycare centers advocacy.", safeguarding: ["GBV Referral", "Legal Counseling"] },
+            { id: "s5", name: "BSCIC Satkhira", short: "BSCIC", upazila: "Satkhira Sadar", type: "Govt SME", priority: "now", emoji: "🏛️", logo: "bscic_logo.png", services: "5% low-interest loans, plot allocations, trade fair mentoring.", women: "30% women priority quota for industrial plots and credit.", safeguarding: ["30% Plot Quota", "Low Interest"] },
+            { id: "s6", name: "Rony Plywood", short: "Rony", upazila: "Satkhira Sadar", type: "Private Employer", priority: "now", emoji: "🏢", logo: "rpi_logo.png", services: "Board finishing, cleaning, floor production; on-the-job training.", women: "Separate washrooms, CCTV, feedback boxes. No childcare daycare.", safeguarding: ["Wage Progression", "No Daycare (GAP)"] },
+            { id: "s7", name: "BWRDS", short: "BWRDS", upazila: "Satkhira Sadar", type: "NGO / Training", priority: "next", emoji: "🤝", logo: "bwrds_logo.png", services: "Digital marketing, freelancing, handicrafts, tailoring.", women: "Separate washrooms, breastfeeding room, prayer space.", safeguarding: ["Breastfeeding Room", "Grievance Desk"] },
+            { id: "s8", name: "Progress / Winrock", short: "Progress", upazila: "Satkhira Sadar", type: "Development Partner", priority: "next", emoji: "🤝", logo: "winrock_logo.png", services: "Entrepreneurship, electrical house-wiring, sewing; survivor-sensitive.", women: "High safety protocols; strictly non-hazardous job options.", safeguarding: ["Survivor Sensitive", "Decent Work Check"] },
+            { id: "s9", name: "Rupantor", short: "Rupantor", upazila: "Satkhira Sadar", type: "NGO", priority: "next", emoji: "🤝", logo: "rupantor_logo.png", services: "Safe work advocacy, internships, NGO sector recruitment.", women: "Vocal gender equity commitment throughout programs.", safeguarding: ["Internships", "Equity Mandate"] },
+            { id: "s10", name: "China Bangla Food", short: "China B", upazila: "Satkhira Sadar", type: "Food Manufacturer", priority: "next", emoji: "🏢", logo: "chinabangla_logo.png", services: "Packaging, sorting, cleaning, seasonal production.", women: "Separate washrooms. Lower wages (BDT 5500-6000) below threshold.", safeguarding: ["Low Wage Alert", "Seasonal Guard"] },
+            { id: "s11", name: "Unilever", short: "Unilever", upazila: "Satkhira Sadar", type: "MNC / FMCG", priority: "later", emoji: "🏢", logo: "unilever_logo.png", services: "Sales, territory operations, HR, supply chain. Degree required.", women: "Breastfeeding rooms, paid maternity leave, travel allowances.", safeguarding: ["Degree Needed", "Maternity Leave"] },
+            { id: "s12", name: "Breaking The Silence", short: "BTS", upazila: "Satkhira Sadar", type: "Implementing Partner", priority: "now", emoji: "🔴", logo: "bts_logo.png", services: "Save the Children IP. Participant mobilization, vulnerability mapping, family gating.", women: "Trusted community actor; focus on NEET and vulnerable women.", safeguarding: ["NEET Outreach", "SCI Partner"] },
 
             // Debhata
-            { id: "d1", name: "Uttaran Technical Inst.", short: "Uttaran", upazila: "Debhata", type: "Training Provider", priority: "now", emoji: "🏛️", services: "Benchmark model: Garments, mobile repairing; free residential training, transport allowance; job replacement support.", women: "Full residential care, separate washrooms, PWD access, feedback boxes.", safeguarding: ["Benchmark Model", "Free Residential", "Transport Pay"] },
+            { id: "d1", name: "Uttaran Technical Inst.", short: "Uttaran", upazila: "Debhata", type: "Training Provider", priority: "now", emoji: "🏛️", logo: "uttaran_logo.png", services: "Benchmark model: Garments, mobile repairing; free residential training, transport allowance; job replacement support.", women: "Full residential care, separate washrooms, PWD access, feedback boxes.", safeguarding: ["Benchmark Model", "Free Residential", "Transport Pay"] },
             { id: "d2", name: "Taskia Garments", short: "Taskia", upazila: "Debhata", type: "Local Employer", priority: "now", emoji: "🏢", services: "Tailoring, block-batik apprenticeships; seasonal hiring.", women: "Women-only environment; lacks on-site washroom facilities (upgrade needed).", safeguarding: ["Facility Upgrade Required", "Apprentice Slots"] },
-            { id: "d3", name: "Noabeki Foundation", short: "Noabeki", upazila: "Debhata", type: "NGO / Livelihood", priority: "now", emoji: "🤝", services: "Tailoring, beautician, block-batik training, micro-loans.", women: "Focus on vulnerable rural girls; financial literacy programs.", safeguarding: ["High Placement Claim", "Rural Focus"] },
-            { id: "d4", name: "DYD Debhata", short: "DYD", upazila: "Debhata", type: "Govt Training", priority: "now", emoji: "🏛️", services: "Fish culture, cattle/goat rearing, poultry, tailoring.", women: "Supports home-based work setups. Limited PWD facilities.", safeguarding: ["Home Livelihoods", "Subsidy"] },
-            { id: "d5", name: "DWA Debhata", short: "DWA", upazila: "Debhata", type: "Govt Empowerment", priority: "now", emoji: "🏛️", services: "IGA training; community mobilization; targeting vulnerable women.", women: "Direct targeting of marginalized girls; high local legitimacy.", safeguarding: ["Govt legitimacy", "Vulnerable Outreach"] },
-            { id: "d6", name: "Echamoti Tech College", short: "Echamoti", upazila: "Debhata", type: "Training Provider", priority: "next", emoji: "🏛️", services: "Food processing, fish culture, business digital skills.", women: "WhatsApp group for complaints and direct student support.", safeguarding: ["Age 14-18 overlap", "WhatsApp Support"] },
+            { id: "d3", name: "Noabeki Foundation", short: "Noabeki", upazila: "Debhata", type: "NGO / Livelihood", priority: "now", emoji: "🤝", logo: "noabeki_logo.png", services: "Tailoring, beautician, block-batik training, micro-loans.", women: "Focus on vulnerable rural girls; financial literacy programs.", safeguarding: ["High Placement Claim", "Rural Focus"] },
+            { id: "d4", name: "DYD Debhata", short: "DYD", upazila: "Debhata", type: "Govt Training", priority: "now", emoji: "🏛️", logo: "dyd_logo.png", services: "Fish culture, cattle/goat rearing, poultry, tailoring.", women: "Supports home-based work setups. Limited PWD facilities.", safeguarding: ["Home Livelihoods", "Subsidy"] },
+            { id: "d5", name: "DWA Debhata", short: "DWA", upazila: "Debhata", type: "Govt Empowerment", priority: "now", emoji: "🏛️", logo: "dwa_logo.png", services: "IGA training; community mobilization; targeting vulnerable women.", women: "Direct targeting of marginalized girls; high local legitimacy.", safeguarding: ["Govt legitimacy", "Vulnerable Outreach"] },
+            { id: "d6", name: "Echamoti Tech College", short: "Echamoti", upazila: "Debhata", type: "Training Provider", priority: "next", emoji: "🏛️", logo: "echamoti_logo.png", services: "Food processing, fish culture, business digital skills.", women: "WhatsApp group for complaints and direct student support.", safeguarding: ["Age 14-18 overlap", "WhatsApp Support"] },
             { id: "d7", name: "Debhata ICT Office", short: "ICT", upazila: "Debhata", type: "Govt ICT", priority: "next", emoji: "🏛️", services: "Basic computer training. No specialized female packages.", women: "Temporary facility; lacks dedicated female toilets.", safeguarding: ["Facility Fix Required", "No Active Projects"] },
-            { id: "d8", name: "Breaking The Silence (D)", short: "BTS (D)", upazila: "Debhata", type: "Implementing Partner", priority: "now", emoji: "🔴", services: "Save the Children IP. Participant mobilization, community advocacy.", women: "Trusted local actor; targets NEET girls.", safeguarding: ["NEET Focus", "SCI Partner"] },
+            { id: "d8", name: "Breaking The Silence (D)", short: "BTS (D)", upazila: "Debhata", type: "Implementing Partner", priority: "now", emoji: "🔴", logo: "bts_logo.png", services: "Save the Children IP. Participant mobilization, community advocacy.", women: "Trusted local actor; targets NEET girls.", safeguarding: ["NEET Focus", "SCI Partner"] },
 
             // Ashashuni
             { id: "a1", name: "Tohomina Ladies Garments", short: "Tohomina", upazila: "Ashashuni", type: "Private / Training", priority: "now", emoji: "🏢", services: "Tailoring assistant courses, apprenticeships, local self-employment.", women: "Top choice in FGDs due to secure, close, women-only environment.", safeguarding: ["Top FGD Pick", "Women Only Setting"] },
-            { id: "a2", name: "SUS", short: "SUS", upazila: "Ashashuni", type: "NGO Livelihood", priority: "now", emoji: "🤝", services: "Guru-shishya model apprenticeships, micro-finance packages.", women: "Trusted rural organization; gender-sensitive local mentors.", safeguarding: ["Guru-Shishya Model", "Rural Finance"] },
+            { id: "a2", name: "SUS", short: "SUS", upazila: "Ashashuni", type: "NGO Livelihood", priority: "now", emoji: "🤝", logo: "sus_logo.png", services: "Guru-shishya model apprenticeships, micro-finance packages.", women: "Trusted rural organization; gender-sensitive local mentors.", safeguarding: ["Guru-Shishya Model", "Rural Finance"] },
             { id: "a3", name: "Local Poultry/Livestock", short: "Livestock", upazila: "Ashashuni", type: "Informal Agri", priority: "now", emoji: "🐔", services: "Poultry rearing, duck farming, goat/cattle vaccination support.", women: "Extremely home-compatible; 80% female workforce ratio.", safeguarding: ["80% Women Workers", "Home-based Livelihoods"] },
-            { id: "a4", name: "Youth Development Office", short: "YDO", upazila: "Ashashuni", type: "Govt Training", priority: "next", emoji: "🏛️", services: "43 vocational courses; low-interest loans; poultry batches.", women: "Reported separate washrooms and female-friendly facilities.", safeguarding: ["43 Courses", "Govt Loans"] },
-            { id: "a5", name: "Women Affairs Office", short: "WAO", upazila: "Ashashuni", type: "Govt Social", priority: "next", emoji: "🏛️", services: "Tailoring, livestock training, loan disbursement packages.", women: "Direct gender mandate; targeted programs for vulnerable girls.", safeguarding: ["Vulnerable targeting", "Grants"] },
+            { id: "a4", name: "Youth Development Office", short: "YDO", upazila: "Ashashuni", type: "Govt Training", priority: "next", emoji: "🏛️", logo: "dyd_logo.png", services: "43 vocational courses; low-interest loans; poultry batches.", women: "Reported separate washrooms and female-friendly facilities.", safeguarding: ["43 Courses", "Govt Loans"] },
+            { id: "a5", name: "Women Affairs Office", short: "WAO", upazila: "Ashashuni", type: "Govt Social", priority: "next", emoji: "🏛️", logo: "dwa_logo.png", services: "Tailoring, livestock training, loan disbursement packages.", women: "Direct gender mandate; targeted programs for vulnerable girls.", safeguarding: ["Vulnerable targeting", "Grants"] },
             { id: "a6", name: "Satata Ladies Tailors", short: "Satata", upazila: "Ashashuni", type: "Training Provider", priority: "next", emoji: "🏢", services: "Tailoring training, shop attachments; linked with BRAC.", women: "Women-only setting, but lacks dedicated toilet facilities (upgrade needed).", safeguarding: ["Facility Upgrade Required", "BRAC Linked"] },
-            { id: "a7", name: "Monayem Computer", short: "Monayem", upazila: "Ashashuni", type: "ICT Training", priority: "next", emoji: "🏢", services: "Basic MS Office, graphic design, online freelancing.", women: "Lacks separate female washrooms. Requires SSC background.", safeguarding: ["No Washroom (GAP)", "SSC+ Requirement"] },
+            { id: "a7", name: "Monayem Computer", short: "Monayem", upazila: "Ashashuni", type: "ICT Training", priority: "next", emoji: "🏢", logo: "monayem_logo.png", services: "Basic MS Office, graphic design, online freelancing.", women: "Lacks separate female washrooms. Requires SSC background.", safeguarding: ["No Washroom (GAP)", "SSC+ Requirement"] },
             { id: "a8", name: "Ashashuni ICT Office", short: "ICT", upazila: "Ashashuni", type: "Govt ICT", priority: "next", emoji: "🏛️", services: "Computer literacy; previously ran the 'Her Power' project.", women: "Currently lacks active women-focused projects or facilities.", safeguarding: ["Former Her Power Site", "No Active Projects"] },
-            { id: "a9", name: "Breaking The Silence (A)", short: "BTS (A)", upazila: "Ashashuni", type: "Implementing Partner", priority: "now", emoji: "🔴", services: "Save the Children IP. Vulnerability segmentation, community gating.", women: "Targets NEET/vulnerable; addresses religious and social barriers.", safeguarding: ["NEET Gating", "SCI Partner"] }
+            { id: "a9", name: "Breaking The Silence (A)", short: "BTS (A)", upazila: "Ashashuni", type: "Implementing Partner", priority: "now", emoji: "🔴", logo: "bts_logo.png", services: "Save the Children IP. Vulnerability segmentation, community gating.", women: "Targets NEET/vulnerable; addresses religious and social barriers.", safeguarding: ["NEET Gating", "SCI Partner"] }
         ];
 
         let zoomVal = 1;
@@ -1022,9 +1022,9 @@
 
         const centerCoords = { x: 1000, y: 1000 };
         const upazilaCoords = {
-            "Satkhira Sadar": { r: 260, angle: 180 }, 
-            "Debhata": { r: 260, angle: 300 },       
-            "Ashashuni": { r: 260, angle: 60 }      
+            "Satkhira Sadar": { r: 350, angle: 180 }, 
+            "Debhata": { r: 350, angle: 300 },       
+            "Ashashuni": { r: 350, angle: 60 }      
         };
 
         // Positions calculator
@@ -1044,21 +1044,21 @@
                     y: centerCoords.y + upazilaCoords["Ashashuni"].r * Math.sin(upazilaCoords["Ashashuni"].angle * Math.PI / 180)
                 };
 
-                // Radial leaf positioning
-                positionLeavesRadial(actors.filter(a => a.upazila === "Satkhira Sadar"), hubsData.sadar.x, hubsData.sadar.y, 220, 110, 250);
-                positionLeavesRadial(actors.filter(a => a.upazila === "Debhata"), hubsData.debhata.x, hubsData.debhata.y, 220, 240, 360);
-                positionLeavesRadial(actors.filter(a => a.upazila === "Ashashuni"), hubsData.ashashuni.x, hubsData.ashashuni.y, 220, 0, 120);
+                // Radial leaf positioning (placed outside the 500px maps)
+                positionLeavesRadial(actors.filter(a => a.upazila === "Satkhira Sadar"), hubsData.sadar.x, hubsData.sadar.y, 260, 110, 250);
+                positionLeavesRadial(actors.filter(a => a.upazila === "Debhata"), hubsData.debhata.x, hubsData.debhata.y, 260, 240, 360);
+                positionLeavesRadial(actors.filter(a => a.upazila === "Ashashuni"), hubsData.ashashuni.x, hubsData.ashashuni.y, 260, 0, 120);
 
             } else {
                 // Column Mindmap locations
-                hubsData.sadar = { x: 550, y: 1000 };
-                hubsData.debhata = { x: 1450, y: 500 };
-                hubsData.ashashuni = { x: 1450, y: 1500 };
+                hubsData.sadar = { x: 450, y: 1000 };
+                hubsData.debhata = { x: 1550, y: 500 };
+                hubsData.ashashuni = { x: 1550, y: 1500 };
 
                 // Column Leaf positioning (spaced vertically)
-                positionLeavesColumn(actors.filter(a => a.upazila === "Satkhira Sadar"), 200, 200, 1800);
-                positionLeavesColumn(actors.filter(a => a.upazila === "Debhata"), 1800, 150, 850);
-                positionLeavesColumn(actors.filter(a => a.upazila === "Ashashuni"), 1800, 1150, 1850);
+                positionLeavesColumn(actors.filter(a => a.upazila === "Satkhira Sadar"), 120, 200, 1800);
+                positionLeavesColumn(actors.filter(a => a.upazila === "Debhata"), 1880, 150, 850);
+                positionLeavesColumn(actors.filter(a => a.upazila === "Ashashuni"), 1880, 1150, 1850);
             }
         }
 

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Interactive Ecosystem Map | Save the Children</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg-color: #f8fafc;
@@ -15,11 +17,11 @@
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --sci-red: #d81f26;
-            
+
             --priority-now: #ef4444;
             --priority-next: #3b82f6;
             --priority-later: #10b981;
-            
+
             --sadar: #0d9488;
             --debhata: #7c3aed;
             --ashashuni: #ea580c;
@@ -39,7 +41,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 10% 20%, #e0f2fe 0%, transparent 45%),
                 radial-gradient(circle at 90% 80%, #f3e8ff 0%, transparent 45%),
                 radial-gradient(var(--grid-color) 1.5px, transparent 1.5px);
@@ -222,18 +224,39 @@
             stroke-linecap: round;
         }
 
-        .edge.sadar { stroke: rgba(13, 148, 136, 0.25); }
-        .edge.debhata { stroke: rgba(124, 58, 237, 0.25); }
-        .edge.ashashuni { stroke: rgba(234, 88, 12, 0.25); }
+        .edge.sadar {
+            stroke: rgba(13, 148, 136, 0.25);
+        }
 
-        .edge.highlighted, .edge.hovered {
+        .edge.debhata {
+            stroke: rgba(124, 58, 237, 0.25);
+        }
+
+        .edge.ashashuni {
+            stroke: rgba(234, 88, 12, 0.25);
+        }
+
+        .edge.highlighted,
+        .edge.hovered {
             stroke-width: 5.5;
             filter: drop-shadow(0 0 5px currentColor);
             opacity: 1 !important;
         }
-        .edge.sadar.highlighted, .edge.sadar.hovered { stroke: var(--sadar); }
-        .edge.debhata.highlighted, .edge.debhata.hovered { stroke: var(--debhata); }
-        .edge.ashashuni.highlighted, .edge.ashashuni.hovered { stroke: var(--ashashuni); }
+
+        .edge.sadar.highlighted,
+        .edge.sadar.hovered {
+            stroke: var(--sadar);
+        }
+
+        .edge.debhata.highlighted,
+        .edge.debhata.hovered {
+            stroke: var(--debhata);
+        }
+
+        .edge.ashashuni.highlighted,
+        .edge.ashashuni.hovered {
+            stroke: var(--ashashuni);
+        }
 
         .edge.dimmed {
             opacity: 0.08;
@@ -246,7 +269,8 @@
             opacity: 0.6;
         }
 
-        .edge-pulse.highlighted, .edge-pulse.hovered {
+        .edge-pulse.highlighted,
+        .edge-pulse.hovered {
             stroke-dasharray: 6, 8;
             animation: flow 6s linear infinite;
             stroke-width: 2.5;
@@ -255,7 +279,9 @@
         }
 
         @keyframes flow {
-            to { stroke-dashoffset: -1000; }
+            to {
+                stroke-dashoffset: -1000;
+            }
         }
 
         .node-leaf.hovered-by-line {
@@ -285,9 +311,9 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: left 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), 
-                        top 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), 
-                        transform 0.3s, box-shadow 0.3s, border-color 0.3s, background 0.3s;
+            transition: left 0.8s cubic-bezier(0.25, 0.8, 0.25, 1),
+                top 0.8s cubic-bezier(0.25, 0.8, 0.25, 1),
+                transform 0.3s, box-shadow 0.3s, border-color 0.3s, background 0.3s;
             text-align: center;
         }
 
@@ -320,8 +346,8 @@
 
         /* Upazila Sub-hubs */
         .node.node-hub {
-            width: 155px;
-            height: 155px;
+            width: 500px;
+            height: 500px;
             background: transparent;
             border: none;
             box-shadow: none;
@@ -337,7 +363,8 @@
             transition: transform 0.3s, opacity 0.3s;
         }
 
-        .node.node-hub:hover, .node.node-hub.active {
+        .node.node-hub:hover,
+        .node.node-hub.active {
             transform: translate(-50%, -50%) scale(1.15);
             z-index: 20;
         }
@@ -361,12 +388,12 @@
             background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(4px);
             border: 1px solid rgba(0, 0, 0, 0.08);
-            padding: 0.3rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.78rem;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 1.05rem;
             font-weight: 800;
             white-space: nowrap;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.06);
             pointer-events: none;
             transition: all 0.2s;
         }
@@ -386,7 +413,8 @@
             border-color: rgba(249, 115, 22, 0.25);
         }
 
-        .node.node-hub:hover .hub-label, .node.node-hub.active .hub-label {
+        .node.node-hub:hover .hub-label,
+        .node.node-hub.active .hub-label {
             background: #ffffff;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             transform: scale(1.05);
@@ -401,7 +429,8 @@
             box-shadow: 0 5px 20px rgba(148, 163, 184, 0.08);
             cursor: pointer;
             z-index: 8;
-            font-size: 1.3rem; /* Emoji size */
+            font-size: 1.3rem;
+            /* Emoji size */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -414,18 +443,29 @@
             z-index: 2;
         }
 
-        .node-leaf.sadar { border-color: var(--sadar); }
-        .node-leaf.debhata { border-color: var(--debhata); }
-        .node-leaf.ashashuni { border-color: var(--ashashuni); }
+        .node-leaf.sadar {
+            border-color: var(--sadar);
+        }
 
-        .node-leaf:hover, .node-leaf.active {
+        .node-leaf.debhata {
+            border-color: var(--debhata);
+        }
+
+        .node-leaf.ashashuni {
+            border-color: var(--ashashuni);
+        }
+
+        .node-leaf:hover,
+        .node-leaf.active {
             transform: translate(-50%, -50%) scale(1.25);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             z-index: 25;
             background: #ffffff;
         }
 
-        .node-leaf.dimmed, .node-hub.dimmed, .node-center.dimmed {
+        .node-leaf.dimmed,
+        .node-hub.dimmed,
+        .node-center.dimmed {
             opacity: 0.15;
             pointer-events: none;
         }
@@ -439,11 +479,20 @@
             height: 15px;
             border-radius: 50%;
             border: 2px solid white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        .priority-dot.now { background-color: var(--priority-now); }
-        .priority-dot.next { background-color: var(--priority-next); }
-        .priority-dot.later { background-color: var(--priority-later); }
+
+        .priority-dot.now {
+            background-color: var(--priority-now);
+        }
+
+        .priority-dot.next {
+            background-color: var(--priority-next);
+        }
+
+        .priority-dot.later {
+            background-color: var(--priority-later);
+        }
 
         /* Premium Permanent Labels */
         .node-tooltip {
@@ -676,14 +725,36 @@
             gap: 0.25rem;
         }
 
-        .panel-badge.upazila-badge.sadar { background: rgba(13, 148, 136, 0.08); color: var(--sadar); }
-        .panel-badge.upazila-badge.debhata { background: rgba(124, 58, 237, 0.08); color: var(--debhata); }
-        .panel-badge.upazila-badge.ashashuni { background: rgba(234, 88, 12, 0.08); color: var(--ashashuni); }
+        .panel-badge.upazila-badge.sadar {
+            background: rgba(13, 148, 136, 0.08);
+            color: var(--sadar);
+        }
+
+        .panel-badge.upazila-badge.debhata {
+            background: rgba(124, 58, 237, 0.08);
+            color: var(--debhata);
+        }
+
+        .panel-badge.upazila-badge.ashashuni {
+            background: rgba(234, 88, 12, 0.08);
+            color: var(--ashashuni);
+        }
 
         /* Priority Status Pill */
-        .panel-badge.priority-badge.now { background: rgba(218, 31, 38, 0.08); color: var(--sci-red); }
-        .panel-badge.priority-badge.next { background: rgba(245, 158, 11, 0.08); color: #d97706; }
-        .panel-badge.priority-badge.later { background: rgba(16, 185, 129, 0.08); color: #10b981; }
+        .panel-badge.priority-badge.now {
+            background: rgba(218, 31, 38, 0.08);
+            color: var(--sci-red);
+        }
+
+        .panel-badge.priority-badge.next {
+            background: rgba(245, 158, 11, 0.08);
+            color: #d97706;
+        }
+
+        .panel-badge.priority-badge.later {
+            background: rgba(16, 185, 129, 0.08);
+            color: #10b981;
+        }
 
         .panel-section-compact {
             display: flex;
@@ -698,15 +769,18 @@
         }
 
         .panel-section-compact.services-sec {
-            border-left-color: #6366f1; /* Indigo accent */
+            border-left-color: #6366f1;
+            /* Indigo accent */
         }
 
         .panel-section-compact.gender-sec {
-            border-left-color: #db2777; /* Deep Pink accent */
+            border-left-color: #db2777;
+            /* Deep Pink accent */
         }
 
         .panel-section-compact.safeguarding-sec {
-            border-left-color: #0d9488; /* Teal accent */
+            border-left-color: #0d9488;
+            /* Teal accent */
         }
 
         .panel-section-header {
@@ -725,7 +799,8 @@
         .panel-section-label {
             font-size: 0.78rem;
             font-weight: 800;
-            color: #1e293b; /* High-contrast text */
+            color: #1e293b;
+            /* High-contrast text */
             text-transform: uppercase;
             letter-spacing: 0.7px;
         }
@@ -810,6 +885,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -817,9 +893,13 @@
             <svg viewBox="0 0 100 100" style="width: 45px; height: 45px;">
                 <circle cx="50" cy="50" r="48" fill="#D81F26" />
                 <circle cx="50" cy="32" r="10" fill="#FFFFFF" />
-                <path d="M50 45 C42 45 35 38 27 30 C24 27 22 28 24 32 C28 42 38 52 46 55 L43 78 C42 80 43 82 46 82 L54 82 C57 82 58 80 57 78 L54 55 C62 52 72 42 76 32 C78 28 76 27 73 30 C65 38 58 45 50 45 Z" fill="#FFFFFF" />
-                <path d="M22 65 C18 55 18 42 24 32 C22 34 20 37 19 41 C16 52 18 64 24 74 C25 76 27 75 26 73 Z" fill="#FFFFFF" />
-                <path d="M78 65 C82 55 82 42 76 32 C78 34 80 37 81 41 C84 52 82 64 76 74 C75 76 73 75 74 73 Z" fill="#FFFFFF" />
+                <path
+                    d="M50 45 C42 45 35 38 27 30 C24 27 22 28 24 32 C28 42 38 52 46 55 L43 78 C42 80 43 82 46 82 L54 82 C57 82 58 80 57 78 L54 55 C62 52 72 42 76 32 C78 28 76 27 73 30 C65 38 58 45 50 45 Z"
+                    fill="#FFFFFF" />
+                <path d="M22 65 C18 55 18 42 24 32 C22 34 20 37 19 41 C16 52 18 64 24 74 C25 76 27 75 26 73 Z"
+                    fill="#FFFFFF" />
+                <path d="M78 65 C82 55 82 42 76 32 C78 34 80 37 81 41 C84 52 82 64 76 74 C75 76 73 75 74 73 Z"
+                    fill="#FFFFFF" />
             </svg>
             <h1 class="header-title">Save the Children</h1>
         </div>
@@ -829,16 +909,21 @@
     <div class="control-panel">
         <div class="left-controls">
             <div class="search-box">
-                <svg viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/></svg>
-                <input type="text" id="nodeSearch" placeholder="Search actor by name or service..." oninput="handleSearch()">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+                </svg>
+                <input type="text" id="nodeSearch" placeholder="Search actor by name or service..."
+                    oninput="handleSearch()">
             </div>
 
             <div class="layout-toggle-group">
                 <button class="layout-btn" id="btn-radial" onclick="toggleLayout('radial')">Radial Map</button>
-                <button class="layout-btn active" id="btn-orthogonal" onclick="toggleLayout('columns')">Mind-map Columns</button>
+                <button class="layout-btn active" id="btn-orthogonal" onclick="toggleLayout('columns')">Mind-map
+                    Columns</button>
             </div>
         </div>
-        
+
         <div class="filter-btn-group">
             <button class="filter-btn active" data-filter="all" onclick="applyFilter('all')">All Priority</button>
             <button class="filter-btn" data-filter="now" onclick="applyFilter('now')">NOW</button>
@@ -852,29 +937,42 @@
         <div class="network-container layout-columns" id="network-container">
             <!-- Dynamic Edge SVG Canvas -->
             <svg class="network-svg" id="network-svg"></svg>
-            
+
             <!-- Nodes -->
             <div class="nodes-layer" id="nodes-layer">
                 <!-- Master Center Hub (Contains the full required text + Logo) -->
                 <div class="node node-center" style="top: 1000px; left: 1000px;">
                     <div style="display: flex; justify-content: center; margin-bottom: 0.6rem;">
-                        <svg viewBox="0 0 100 100" style="width: 50px; height: 50px; filter: drop-shadow(0 4px 6px rgba(216, 31, 38, 0.2));">
+                        <svg viewBox="0 0 100 100"
+                            style="width: 50px; height: 50px; filter: drop-shadow(0 4px 6px rgba(216, 31, 38, 0.2));">
                             <circle cx="50" cy="50" r="48" fill="#D81F26" />
                             <circle cx="50" cy="32" r="10" fill="#FFFFFF" />
-                            <path d="M50 45 C42 45 35 38 27 30 C24 27 22 28 24 32 C28 42 38 52 46 55 L43 78 C42 80 43 82 46 82 L54 82 C57 82 58 80 57 78 L54 55 C62 52 72 42 76 32 C78 28 76 27 73 30 C65 38 58 45 50 45 Z" fill="#FFFFFF" />
-                            <path d="M22 65 C18 55 18 42 24 32 C22 34 20 37 19 41 C16 52 18 64 24 74 C25 76 27 75 26 73 Z" fill="#FFFFFF" />
-                            <path d="M78 65 C82 55 82 42 76 32 C78 34 80 37 81 41 C84 52 82 64 76 74 C75 76 73 75 74 73 Z" fill="#FFFFFF" />
+                            <path
+                                d="M50 45 C42 45 35 38 27 30 C24 27 22 28 24 32 C28 42 38 52 46 55 L43 78 C42 80 43 82 46 82 L54 82 C57 82 58 80 57 78 L54 55 C62 52 72 42 76 32 C78 28 76 27 73 30 C65 38 58 45 50 45 Z"
+                                fill="#FFFFFF" />
+                            <path
+                                d="M22 65 C18 55 18 42 24 32 C22 34 20 37 19 41 C16 52 18 64 24 74 C25 76 27 75 26 73 Z"
+                                fill="#FFFFFF" />
+                            <path
+                                d="M78 65 C82 55 82 42 76 32 C78 34 80 37 81 41 C84 52 82 64 76 74 C75 76 73 75 74 73 Z"
+                                fill="#FFFFFF" />
                         </svg>
                     </div>
-                    <span style="font-size:0.65rem; font-weight:800; color:var(--sci-red); letter-spacing:1px; text-transform:uppercase;">Ecosystem Hub</span>
+                    <span
+                        style="font-size:0.65rem; font-weight:800; color:var(--sci-red); letter-spacing:1px; text-transform:uppercase;">Ecosystem
+                        Hub</span>
                     <h3>Youth Employment Ecosystem Mapping</h3>
-                    <p style="font-style: italic; font-weight:600; color:var(--text-secondary);">for (Gender-sensitive needs assessments to identify employment barriers faced by young women)</p>
+                    <p style="font-style: italic; font-weight:600; color:var(--text-secondary);">for (Gender-sensitive
+                        needs assessments to identify employment barriers faced by young women)</p>
                 </div>
 
                 <!-- Upazila hubs -->
-                <div class="node node-hub sadar" id="hub-sadar" onclick="selectHub('sadar', event)"><span class="hub-label">Satkhira Sadar</span></div>
-                <div class="node node-hub debhata" id="hub-debhata" onclick="selectHub('debhata', event)"><span class="hub-label">Debhata</span></div>
-                <div class="node node-hub ashashuni" id="hub-ashashuni" onclick="selectHub('ashashuni', event)"><span class="hub-label">Ashashuni</span></div>
+                <div class="node node-hub sadar" id="hub-sadar" onclick="selectHub('sadar', event)"><span
+                        class="hub-label">Satkhira Sadar</span></div>
+                <div class="node node-hub debhata" id="hub-debhata" onclick="selectHub('debhata', event)"><span
+                        class="hub-label">Debhata</span></div>
+                <div class="node node-hub ashashuni" id="hub-ashashuni" onclick="selectHub('ashashuni', event)"><span
+                        class="hub-label">Ashashuni</span></div>
             </div>
         </div>
 
@@ -891,10 +989,13 @@
         <!-- Floating Legend Panel -->
         <div class="floating-widget legend-panel">
             <div class="legend-title">Upazila Channels</div>
-            <div class="legend-row"><span class="legend-color" style="background:var(--sadar)"></span> Satkhira Sadar (Teal)</div>
-            <div class="legend-row"><span class="legend-color" style="background:var(--debhata)"></span> Debhata Upazila (Purple)</div>
-            <div class="legend-row"><span class="legend-color" style="background:var(--ashashuni)"></span> Ashashuni Upazila (Orange)</div>
-            
+            <div class="legend-row"><span class="legend-color" style="background:var(--sadar)"></span> Satkhira Sadar
+                (Teal)</div>
+            <div class="legend-row"><span class="legend-color" style="background:var(--debhata)"></span> Debhata Upazila
+                (Purple)</div>
+            <div class="legend-row"><span class="legend-color" style="background:var(--ashashuni)"></span> Ashashuni
+                Upazila (Orange)</div>
+
             <div class="legend-title" style="margin-top:0.4rem">Strategic Tiers</div>
             <div class="legend-row"><span class="legend-priority now"></span> NOW Tier (Immediate Engagement)</div>
             <div class="legend-row"><span class="legend-priority next"></span> NEXT Tier (Refit / Future Link)</div>
@@ -904,13 +1005,20 @@
         <!-- Floating Zoom HUD Controls -->
         <div class="zoom-controls">
             <button class="zoom-btn" onclick="zoomIn()" title="Zoom In">
-                <svg viewBox="0 0 24 24"><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/></svg>
+                <svg viewBox="0 0 24 24">
+                    <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+                </svg>
             </button>
             <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">
-                <svg viewBox="0 0 24 24"><path d="M19,13H5V11H19V13Z"/></svg>
+                <svg viewBox="0 0 24 24">
+                    <path d="M19,13H5V11H19V13Z" />
+                </svg>
             </button>
             <button class="zoom-btn" onclick="zoomReset()" title="Reset & Center View">
-                <svg viewBox="0 0 24 24"><path d="M12,4C14.21,4 16,5.79 16,8C16,9.5 15,11 13.5,12.2C12.7,12.9 12,13.9 12,15H10C10,13 11,11.5 12,10.5C13,9.5 14,8.9 14,8C14,6.9 13.1,6 12,6C10.9,6 10,6.9 10,8H8C8,5.79 9.79,4 12,4M11,17H13V19H11V17Z"/></svg>
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M12,4C14.21,4 16,5.79 16,8C16,9.5 15,11 13.5,12.2C12.7,12.9 12,13.9 12,15H10C10,13 11,11.5 12,10.5C13,9.5 14,8.9 14,8C14,6.9 13.1,6 12,6C10.9,6 10,6.9 10,8H8C8,5.79 9.79,4 12,4M11,17H13V19H11V17Z" />
+                </svg>
             </button>
         </div>
     </div>
@@ -920,11 +1028,13 @@
     <div class="detail-panel" id="detail-panel">
         <div class="panel-header-bar">
             <button class="panel-close-btn" onclick="closePanel()">
-                <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.16L13.5,5.58L8,11H20Z"/></svg>
+                <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24">
+                    <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.16L13.5,5.58L8,11H20Z" />
+                </svg>
                 Back to Map
             </button>
         </div>
-        
+
         <div class="panel-scroll-content">
             <div class="panel-title-section">
                 <h3 class="panel-title" id="panel-title">Actor Name</h3>
@@ -955,7 +1065,7 @@
                     <!-- Dynamic bullet list -->
                 </ul>
             </div>
-            
+
             <!-- Safeguarding Section -->
             <div class="panel-section-compact safeguarding-sec">
                 <div class="panel-section-header">
@@ -972,39 +1082,39 @@
     <script>
         const actors = [
             // Satkhira Sadar
-            { id: "s1", name: "TTC Satkhira", short: "TTC", upazila: "Satkhira Sadar", type: "Government Training", priority: "now", emoji: "🏛️", services: "Garment manufacturing, computer operator courses; dedicated job placement cell; Walton/RFL links; job fairs.", women: "Separate toilets, prayer room, grievance box, and residential facilities.", safeguarding: ["Placement Cell", "Separate Washrooms"] },
+            { id: "s1", name: "TTC Satkhira", short: "TTC", upazila: "Satkhira Sadar", type: "Government Training", priority: "now", emoji: "🏛️", logo: "ttc_logo.png", services: "Garment manufacturing, computer operator courses; dedicated job placement cell; Walton/RFL links; job fairs.", women: "Separate toilets, prayer room, grievance box, and residential facilities.", safeguarding: ["Placement Cell", "Separate Washrooms"] },
             { id: "s2", name: "Rishilpi Foundation", short: "Rishilpi", upazila: "Satkhira Sadar", type: "Social Enterprise", priority: "now", emoji: "🤝", logo: "rishilpi_logo.png", services: "Nakshi Kantha, Jute/straw crafts; home-based production delivery & product collection.", women: "Highly inclusive home-based model; PWD friendly; sexual harassment response policies.", safeguarding: ["Home Delivery", "PWD Friendly", "Anti-harassment code"] },
-            { id: "s3", name: "DYD Sadar", short: "DYD", upazila: "Satkhira Sadar", type: "Govt Training", priority: "now", emoji: "🏛️", services: "Livestock rearing, agriculture, computer packages; microcredit loans.", women: "Low course fees; separate toilets; fee waivers for disabled candidates.", safeguarding: ["Govt Loans", "Subsidized Fees"] },
-            { id: "s4", name: "DWA Sadar", short: "DWA", upazila: "Satkhira Sadar", type: "Govt Empowerment", priority: "now", emoji: "🏛️", services: "Tailoring, beauty parlor, computer, small business; legal aid & GBV referral.", women: "Direct gender mandate; counseling rooms; daycare centers advocacy.", safeguarding: ["GBV Referral", "Legal Counseling"] },
-            { id: "s5", name: "BSCIC Satkhira", short: "BSCIC", upazila: "Satkhira Sadar", type: "Govt SME", priority: "now", emoji: "🏛️", services: "5% low-interest loans, plot allocations, trade fair mentoring.", women: "30% women priority quota for industrial plots and credit.", safeguarding: ["30% Plot Quota", "Low Interest"] },
-            { id: "s6", name: "Rony Plywood", short: "Rony", upazila: "Satkhira Sadar", type: "Private Employer", priority: "now", emoji: "🏢", services: "Board finishing, cleaning, floor production; on-the-job training.", women: "Separate washrooms, CCTV, feedback boxes. No childcare daycare.", safeguarding: ["Wage Progression", "No Daycare (GAP)"] },
-            { id: "s7", name: "BWRDS", short: "BWRDS", upazila: "Satkhira Sadar", type: "NGO / Training", priority: "next", emoji: "🤝", services: "Digital marketing, freelancing, handicrafts, tailoring.", women: "Separate washrooms, breastfeeding room, prayer space.", safeguarding: ["Breastfeeding Room", "Grievance Desk"] },
-            { id: "s8", name: "Progress / Winrock", short: "Progress", upazila: "Satkhira Sadar", type: "Development Partner", priority: "next", emoji: "🤝", services: "Entrepreneurship, electrical house-wiring, sewing; survivor-sensitive.", women: "High safety protocols; strictly non-hazardous job options.", safeguarding: ["Survivor Sensitive", "Decent Work Check"] },
-            { id: "s9", name: "Rupantor", short: "Rupantor", upazila: "Satkhira Sadar", type: "NGO", priority: "next", emoji: "🤝", services: "Safe work advocacy, internships, NGO sector recruitment.", women: "Vocal gender equity commitment throughout programs.", safeguarding: ["Internships", "Equity Mandate"] },
-            { id: "s10", name: "China Bangla Food", short: "China B", upazila: "Satkhira Sadar", type: "Food Manufacturer", priority: "next", emoji: "🏢", services: "Packaging, sorting, cleaning, seasonal production.", women: "Separate washrooms. Lower wages (BDT 5500-6000) below threshold.", safeguarding: ["Low Wage Alert", "Seasonal Guard"] },
-            { id: "s11", name: "Unilever", short: "Unilever", upazila: "Satkhira Sadar", type: "MNC / FMCG", priority: "later", emoji: "🏢", services: "Sales, territory operations, HR, supply chain. Degree required.", women: "Breastfeeding rooms, paid maternity leave, travel allowances.", safeguarding: ["Degree Needed", "Maternity Leave"] },
-            { id: "s12", name: "Breaking The Silence", short: "BTS", upazila: "Satkhira Sadar", type: "Implementing Partner", priority: "now", emoji: "🔴", services: "Save the Children IP. Participant mobilization, vulnerability mapping, family gating.", women: "Trusted community actor; focus on NEET and vulnerable women.", safeguarding: ["NEET Outreach", "SCI Partner"] },
+            { id: "s3", name: "DYD Sadar", short: "DYD", upazila: "Satkhira Sadar", type: "Govt Training", priority: "now", emoji: "🏛️", logo: "dyd_logo.png", services: "Livestock rearing, agriculture, computer packages; microcredit loans.", women: "Low course fees; separate toilets; fee waivers for disabled candidates.", safeguarding: ["Govt Loans", "Subsidized Fees"] },
+            { id: "s4", name: "DWA Sadar", short: "DWA", upazila: "Satkhira Sadar", type: "Govt Empowerment", priority: "now", emoji: "🏛️", logo: "dwa_logo.png", services: "Tailoring, beauty parlor, computer, small business; legal aid & GBV referral.", women: "Direct gender mandate; counseling rooms; daycare centers advocacy.", safeguarding: ["GBV Referral", "Legal Counseling"] },
+            { id: "s5", name: "BSCIC Satkhira", short: "BSCIC", upazila: "Satkhira Sadar", type: "Govt SME", priority: "now", emoji: "🏛️", logo: "bscic_logo.png", services: "5% low-interest loans, plot allocations, trade fair mentoring.", women: "30% women priority quota for industrial plots and credit.", safeguarding: ["30% Plot Quota", "Low Interest"] },
+            { id: "s6", name: "Rony Plywood", short: "Rony", upazila: "Satkhira Sadar", type: "Private Employer", priority: "now", emoji: "🏢", logo: "rpi_logo.png", services: "Board finishing, cleaning, floor production; on-the-job training.", women: "Separate washrooms, CCTV, feedback boxes. No childcare daycare.", safeguarding: ["Wage Progression", "No Daycare (GAP)"] },
+            { id: "s7", name: "BWRDS", short: "BWRDS", upazila: "Satkhira Sadar", type: "NGO / Training", priority: "next", emoji: "🤝", logo: "bwrds_logo.png", services: "Digital marketing, freelancing, handicrafts, tailoring.", women: "Separate washrooms, breastfeeding room, prayer space.", safeguarding: ["Breastfeeding Room", "Grievance Desk"] },
+            { id: "s8", name: "Progress / Winrock", short: "Progress", upazila: "Satkhira Sadar", type: "Development Partner", priority: "next", emoji: "🤝", logo: "winrock_logo.png", services: "Entrepreneurship, electrical house-wiring, sewing; survivor-sensitive.", women: "High safety protocols; strictly non-hazardous job options.", safeguarding: ["Survivor Sensitive", "Decent Work Check"] },
+            { id: "s9", name: "Rupantor", short: "Rupantor", upazila: "Satkhira Sadar", type: "NGO", priority: "next", emoji: "🤝", logo: "rupantor_logo.png", services: "Safe work advocacy, internships, NGO sector recruitment.", women: "Vocal gender equity commitment throughout programs.", safeguarding: ["Internships", "Equity Mandate"] },
+            { id: "s10", name: "China Bangla Food", short: "China B", upazila: "Satkhira Sadar", type: "Food Manufacturer", priority: "next", emoji: "🏢", logo: "chinabangla_logo.png", services: "Packaging, sorting, cleaning, seasonal production.", women: "Separate washrooms. Lower wages (BDT 5500-6000) below threshold.", safeguarding: ["Low Wage Alert", "Seasonal Guard"] },
+            { id: "s11", name: "Unilever", short: "Unilever", upazila: "Satkhira Sadar", type: "MNC / FMCG", priority: "later", emoji: "🏢", logo: "unilever_logo.png", services: "Sales, territory operations, HR, supply chain. Degree required.", women: "Breastfeeding rooms, paid maternity leave, travel allowances.", safeguarding: ["Degree Needed", "Maternity Leave"] },
+            { id: "s12", name: "Breaking The Silence", short: "BTS", upazila: "Satkhira Sadar", type: "Implementing Partner", priority: "now", emoji: "🔴", logo: "bts_logo.png", services: "Save the Children IP. Participant mobilization, vulnerability mapping, family gating.", women: "Trusted community actor; focus on NEET and vulnerable women.", safeguarding: ["NEET Outreach", "SCI Partner"] },
 
             // Debhata
-            { id: "d1", name: "Uttaran Technical Inst.", short: "Uttaran", upazila: "Debhata", type: "Training Provider", priority: "now", emoji: "🏛️", services: "Benchmark model: Garments, mobile repairing; free residential training, transport allowance; job replacement support.", women: "Full residential care, separate washrooms, PWD access, feedback boxes.", safeguarding: ["Benchmark Model", "Free Residential", "Transport Pay"] },
+            { id: "d1", name: "Uttaran Technical Inst.", short: "Uttaran", upazila: "Debhata", type: "Training Provider", priority: "now", emoji: "🏛️", logo: "uttaran_logo.png", services: "Benchmark model: Garments, mobile repairing; free residential training, transport allowance; job replacement support.", women: "Full residential care, separate washrooms, PWD access, feedback boxes.", safeguarding: ["Benchmark Model", "Free Residential", "Transport Pay"] },
             { id: "d2", name: "Taskia Garments", short: "Taskia", upazila: "Debhata", type: "Local Employer", priority: "now", emoji: "🏢", services: "Tailoring, block-batik apprenticeships; seasonal hiring.", women: "Women-only environment; lacks on-site washroom facilities (upgrade needed).", safeguarding: ["Facility Upgrade Required", "Apprentice Slots"] },
-            { id: "d3", name: "Noabeki Foundation", short: "Noabeki", upazila: "Debhata", type: "NGO / Livelihood", priority: "now", emoji: "🤝", services: "Tailoring, beautician, block-batik training, micro-loans.", women: "Focus on vulnerable rural girls; financial literacy programs.", safeguarding: ["High Placement Claim", "Rural Focus"] },
-            { id: "d4", name: "DYD Debhata", short: "DYD", upazila: "Debhata", type: "Govt Training", priority: "now", emoji: "🏛️", services: "Fish culture, cattle/goat rearing, poultry, tailoring.", women: "Supports home-based work setups. Limited PWD facilities.", safeguarding: ["Home Livelihoods", "Subsidy"] },
-            { id: "d5", name: "DWA Debhata", short: "DWA", upazila: "Debhata", type: "Govt Empowerment", priority: "now", emoji: "🏛️", services: "IGA training; community mobilization; targeting vulnerable women.", women: "Direct targeting of marginalized girls; high local legitimacy.", safeguarding: ["Govt legitimacy", "Vulnerable Outreach"] },
-            { id: "d6", name: "Echamoti Tech College", short: "Echamoti", upazila: "Debhata", type: "Training Provider", priority: "next", emoji: "🏛️", services: "Food processing, fish culture, business digital skills.", women: "WhatsApp group for complaints and direct student support.", safeguarding: ["Age 14-18 overlap", "WhatsApp Support"] },
+            { id: "d3", name: "Noabeki Foundation", short: "Noabeki", upazila: "Debhata", type: "NGO / Livelihood", priority: "now", emoji: "🤝", logo: "noabeki_logo.png", services: "Tailoring, beautician, block-batik training, micro-loans.", women: "Focus on vulnerable rural girls; financial literacy programs.", safeguarding: ["High Placement Claim", "Rural Focus"] },
+            { id: "d4", name: "DYD Debhata", short: "DYD", upazila: "Debhata", type: "Govt Training", priority: "now", emoji: "🏛️", logo: "dyd_logo.png", services: "Fish culture, cattle/goat rearing, poultry, tailoring.", women: "Supports home-based work setups. Limited PWD facilities.", safeguarding: ["Home Livelihoods", "Subsidy"] },
+            { id: "d5", name: "DWA Debhata", short: "DWA", upazila: "Debhata", type: "Govt Empowerment", priority: "now", emoji: "🏛️", logo: "dwa_logo.png", services: "IGA training; community mobilization; targeting vulnerable women.", women: "Direct targeting of marginalized girls; high local legitimacy.", safeguarding: ["Govt legitimacy", "Vulnerable Outreach"] },
+            { id: "d6", name: "Echamoti Tech College", short: "Echamoti", upazila: "Debhata", type: "Training Provider", priority: "next", emoji: "🏛️", logo: "echamoti_logo.png", services: "Food processing, fish culture, business digital skills.", women: "WhatsApp group for complaints and direct student support.", safeguarding: ["Age 14-18 overlap", "WhatsApp Support"] },
             { id: "d7", name: "Debhata ICT Office", short: "ICT", upazila: "Debhata", type: "Govt ICT", priority: "next", emoji: "🏛️", services: "Basic computer training. No specialized female packages.", women: "Temporary facility; lacks dedicated female toilets.", safeguarding: ["Facility Fix Required", "No Active Projects"] },
-            { id: "d8", name: "Breaking The Silence (D)", short: "BTS (D)", upazila: "Debhata", type: "Implementing Partner", priority: "now", emoji: "🔴", services: "Save the Children IP. Participant mobilization, community advocacy.", women: "Trusted local actor; targets NEET girls.", safeguarding: ["NEET Focus", "SCI Partner"] },
+            { id: "d8", name: "Breaking The Silence (D)", short: "BTS (D)", upazila: "Debhata", type: "Implementing Partner", priority: "now", emoji: "🔴", logo: "bts_logo.png", services: "Save the Children IP. Participant mobilization, community advocacy.", women: "Trusted local actor; targets NEET girls.", safeguarding: ["NEET Focus", "SCI Partner"] },
 
             // Ashashuni
             { id: "a1", name: "Tohomina Ladies Garments", short: "Tohomina", upazila: "Ashashuni", type: "Private / Training", priority: "now", emoji: "🏢", services: "Tailoring assistant courses, apprenticeships, local self-employment.", women: "Top choice in FGDs due to secure, close, women-only environment.", safeguarding: ["Top FGD Pick", "Women Only Setting"] },
-            { id: "a2", name: "SUS", short: "SUS", upazila: "Ashashuni", type: "NGO Livelihood", priority: "now", emoji: "🤝", services: "Guru-shishya model apprenticeships, micro-finance packages.", women: "Trusted rural organization; gender-sensitive local mentors.", safeguarding: ["Guru-Shishya Model", "Rural Finance"] },
+            { id: "a2", name: "SUS", short: "SUS", upazila: "Ashashuni", type: "NGO Livelihood", priority: "now", emoji: "🤝", logo: "sus_logo.png", services: "Guru-shishya model apprenticeships, micro-finance packages.", women: "Trusted rural organization; gender-sensitive local mentors.", safeguarding: ["Guru-Shishya Model", "Rural Finance"] },
             { id: "a3", name: "Local Poultry/Livestock", short: "Livestock", upazila: "Ashashuni", type: "Informal Agri", priority: "now", emoji: "🐔", services: "Poultry rearing, duck farming, goat/cattle vaccination support.", women: "Extremely home-compatible; 80% female workforce ratio.", safeguarding: ["80% Women Workers", "Home-based Livelihoods"] },
-            { id: "a4", name: "Youth Development Office", short: "YDO", upazila: "Ashashuni", type: "Govt Training", priority: "next", emoji: "🏛️", services: "43 vocational courses; low-interest loans; poultry batches.", women: "Reported separate washrooms and female-friendly facilities.", safeguarding: ["43 Courses", "Govt Loans"] },
-            { id: "a5", name: "Women Affairs Office", short: "WAO", upazila: "Ashashuni", type: "Govt Social", priority: "next", emoji: "🏛️", services: "Tailoring, livestock training, loan disbursement packages.", women: "Direct gender mandate; targeted programs for vulnerable girls.", safeguarding: ["Vulnerable targeting", "Grants"] },
+            { id: "a4", name: "Youth Development Office", short: "YDO", upazila: "Ashashuni", type: "Govt Training", priority: "next", emoji: "🏛️", logo: "dyd_logo.png", services: "43 vocational courses; low-interest loans; poultry batches.", women: "Reported separate washrooms and female-friendly facilities.", safeguarding: ["43 Courses", "Govt Loans"] },
+            { id: "a5", name: "Women Affairs Office", short: "WAO", upazila: "Ashashuni", type: "Govt Social", priority: "next", emoji: "🏛️", logo: "dwa_logo.png", services: "Tailoring, livestock training, loan disbursement packages.", women: "Direct gender mandate; targeted programs for vulnerable girls.", safeguarding: ["Vulnerable targeting", "Grants"] },
             { id: "a6", name: "Satata Ladies Tailors", short: "Satata", upazila: "Ashashuni", type: "Training Provider", priority: "next", emoji: "🏢", services: "Tailoring training, shop attachments; linked with BRAC.", women: "Women-only setting, but lacks dedicated toilet facilities (upgrade needed).", safeguarding: ["Facility Upgrade Required", "BRAC Linked"] },
-            { id: "a7", name: "Monayem Computer", short: "Monayem", upazila: "Ashashuni", type: "ICT Training", priority: "next", emoji: "🏢", services: "Basic MS Office, graphic design, online freelancing.", women: "Lacks separate female washrooms. Requires SSC background.", safeguarding: ["No Washroom (GAP)", "SSC+ Requirement"] },
+            { id: "a7", name: "Monayem Computer", short: "Monayem", upazila: "Ashashuni", type: "ICT Training", priority: "next", emoji: "🏢", logo: "monayem_logo.png", services: "Basic MS Office, graphic design, online freelancing.", women: "Lacks separate female washrooms. Requires SSC background.", safeguarding: ["No Washroom (GAP)", "SSC+ Requirement"] },
             { id: "a8", name: "Ashashuni ICT Office", short: "ICT", upazila: "Ashashuni", type: "Govt ICT", priority: "next", emoji: "🏛️", services: "Computer literacy; previously ran the 'Her Power' project.", women: "Currently lacks active women-focused projects or facilities.", safeguarding: ["Former Her Power Site", "No Active Projects"] },
-            { id: "a9", name: "Breaking The Silence (A)", short: "BTS (A)", upazila: "Ashashuni", type: "Implementing Partner", priority: "now", emoji: "🔴", services: "Save the Children IP. Vulnerability segmentation, community gating.", women: "Targets NEET/vulnerable; addresses religious and social barriers.", safeguarding: ["NEET Gating", "SCI Partner"] }
+            { id: "a9", name: "Breaking The Silence (A)", short: "BTS (A)", upazila: "Ashashuni", type: "Implementing Partner", priority: "now", emoji: "🔴", logo: "bts_logo.png", services: "Save the Children IP. Vulnerability segmentation, community gating.", women: "Targets NEET/vulnerable; addresses religious and social barriers.", safeguarding: ["NEET Gating", "SCI Partner"] }
         ];
 
         let zoomVal = 1;
@@ -1022,9 +1132,9 @@
 
         const centerCoords = { x: 1000, y: 1000 };
         const upazilaCoords = {
-            "Satkhira Sadar": { r: 260, angle: 180 }, 
-            "Debhata": { r: 260, angle: 300 },       
-            "Ashashuni": { r: 260, angle: 60 }      
+            "Satkhira Sadar": { r: 350, angle: 180 }, 
+            "Debhata": { r: 350, angle: 300 },       
+            "Ashashuni": { r: 350, angle: 60 }      
         };
 
         // Positions calculator
@@ -1044,21 +1154,21 @@
                     y: centerCoords.y + upazilaCoords["Ashashuni"].r * Math.sin(upazilaCoords["Ashashuni"].angle * Math.PI / 180)
                 };
 
-                // Radial leaf positioning
-                positionLeavesRadial(actors.filter(a => a.upazila === "Satkhira Sadar"), hubsData.sadar.x, hubsData.sadar.y, 220, 110, 250);
-                positionLeavesRadial(actors.filter(a => a.upazila === "Debhata"), hubsData.debhata.x, hubsData.debhata.y, 220, 240, 360);
-                positionLeavesRadial(actors.filter(a => a.upazila === "Ashashuni"), hubsData.ashashuni.x, hubsData.ashashuni.y, 220, 0, 120);
+                // Radial leaf positioning (placed outside the 500px maps)
+                positionLeavesRadial(actors.filter(a => a.upazila === "Satkhira Sadar"), hubsData.sadar.x, hubsData.sadar.y, 260, 110, 250);
+                positionLeavesRadial(actors.filter(a => a.upazila === "Debhata"), hubsData.debhata.x, hubsData.debhata.y, 260, 240, 360);
+                positionLeavesRadial(actors.filter(a => a.upazila === "Ashashuni"), hubsData.ashashuni.x, hubsData.ashashuni.y, 260, 0, 120);
 
             } else {
                 // Column Mindmap locations
-                hubsData.sadar = { x: 550, y: 1000 };
-                hubsData.debhata = { x: 1450, y: 500 };
-                hubsData.ashashuni = { x: 1450, y: 1500 };
+                hubsData.sadar = { x: 450, y: 1000 };
+                hubsData.debhata = { x: 1550, y: 500 };
+                hubsData.ashashuni = { x: 1550, y: 1500 };
 
                 // Column Leaf positioning (spaced vertically)
-                positionLeavesColumn(actors.filter(a => a.upazila === "Satkhira Sadar"), 200, 200, 1800);
-                positionLeavesColumn(actors.filter(a => a.upazila === "Debhata"), 1800, 150, 850);
-                positionLeavesColumn(actors.filter(a => a.upazila === "Ashashuni"), 1800, 1150, 1850);
+                positionLeavesColumn(actors.filter(a => a.upazila === "Satkhira Sadar"), 120, 200, 1800);
+                positionLeavesColumn(actors.filter(a => a.upazila === "Debhata"), 1880, 150, 850);
+                positionLeavesColumn(actors.filter(a => a.upazila === "Ashashuni"), 1880, 1150, 1850);
             }
         }
 
@@ -1067,7 +1177,7 @@
         function positionLeavesRadial(list, parentX, parentY, radius, startAngleDeg, endAngleDeg) {
             const count = list.length;
             const step = count > 1 ? (endAngleDeg - startAngleDeg) / (count - 1) : 0;
-            
+
             list.forEach((actor, index) => {
                 const angle = (startAngleDeg + index * step) * Math.PI / 180;
                 actor.targetX = parentX + radius * Math.cos(angle);
@@ -1080,7 +1190,7 @@
         function positionLeavesColumn(list, targetX, startY, endY) {
             const count = list.length;
             const step = count > 1 ? (endY - startY) / (count - 1) : 0;
-            
+
             list.forEach((actor, index) => {
                 actor.targetX = targetX;
                 actor.targetY = startY + index * step;
@@ -1110,7 +1220,7 @@
                             // Radial layout fanning
                             const dx = actor.x - actor.px;
                             const dy = actor.y - actor.py;
-                            const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+                            const dist = Math.sqrt(dx * dx + dy * dy) || 1;
                             const ux = dx / dist;
                             const uy = dy / dist;
 
@@ -1175,7 +1285,7 @@
             // Smoothly redraw SVG lines during CSS transition
             const duration = 800; // matches CSS transitions
             const start = performance.now();
-            
+
             function step() {
                 drawLines();
                 if (performance.now() - start < duration) {
@@ -1197,8 +1307,8 @@
 
             actors.forEach(actor => {
                 const matchesFilter = (activeF === 'all' || actor.priority === activeF);
-                const matchesSearch = actor.name.toLowerCase().includes(query) || 
-                                      actor.services.toLowerCase().includes(query);
+                const matchesSearch = actor.name.toLowerCase().includes(query) ||
+                    actor.services.toLowerCase().includes(query);
 
                 if (matchesFilter && matchesSearch) {
                     const el = document.createElement('div');
@@ -1236,7 +1346,7 @@
                         if (p) p.classList.remove('hovered');
                     };
 
-                    const innerContent = actor.logo 
+                    const innerContent = actor.logo
                         ? `<img src="${actor.logo}" class="node-logo-img" alt="${actor.short}">`
                         : `<span style="z-index:2">${actor.emoji}</span>`;
 
@@ -1300,8 +1410,8 @@
             // 2. Hubs to Leaf Nodes
             actors.forEach(actor => {
                 const matchesFilter = (activeF === 'all' || actor.priority === activeF);
-                const matchesSearch = actor.name.toLowerCase().includes(query) || 
-                                      actor.services.toLowerCase().includes(query);
+                const matchesSearch = actor.name.toLowerCase().includes(query) ||
+                    actor.services.toLowerCase().includes(query);
 
                 if (matchesFilter && matchesSearch) {
                     let zone = 'sadar';
@@ -1338,7 +1448,7 @@
                     line.setAttribute('x2', currentLeafX);
                     line.setAttribute('y2', currentLeafY);
                     line.setAttribute('class', `edge ${zone} ${isSelected ? 'highlighted' : ''} ${isDimmed ? 'dimmed' : ''}`);
-                    
+
                     line.style.cursor = 'pointer';
                     line.style.pointerEvents = 'stroke';
                     line.onclick = () => selectNode(actor);
@@ -1405,7 +1515,7 @@
         // Upazila Hub Selection and Focus
         function selectHub(hubName, e) {
             if (e) e.stopPropagation();
-            
+
             if (selHub === hubName) {
                 deselectHub();
                 return;
@@ -1413,7 +1523,7 @@
 
             selHub = hubName;
             selNodeId = null;
-            
+
             document.getElementById('detail-panel').classList.remove('open');
             document.getElementById('panel-overlay').classList.remove('open');
 
@@ -1442,7 +1552,7 @@
 
         function deselectHub() {
             selHub = null;
-            
+
             document.querySelectorAll('.node-hub').forEach(el => {
                 el.classList.remove('active', 'dimmed');
             });
@@ -1474,7 +1584,7 @@
         function openPanel(actor) {
             document.getElementById('panel-title').innerText = actor.name;
             document.getElementById('panel-type').innerText = actor.type;
-            
+
             const upazilaEl = document.getElementById('panel-upazila');
             upazilaEl.innerText = actor.upazila;
             upazilaEl.className = 'panel-badge upazila-badge';
@@ -1491,7 +1601,7 @@
             priorityBadge.id = 'panel-priority-badge';
             priorityBadge.className = `panel-badge priority-badge ${actor.priority}`;
             priorityBadge.innerHTML = `<span class="priority-dot ${actor.priority}" style="position:static; margin-right:0.25rem;"></span> ${pText} Tier`;
-            
+
             document.getElementById('panel-badge-row').appendChild(priorityBadge);
 
             // Split and render Services
@@ -1525,8 +1635,8 @@
                     const div = document.createElement('div');
                     const isWarning = item.toLowerCase().includes('upgrade') || item.toLowerCase().includes('alert') || item.toLowerCase().includes('gap') || item.toLowerCase().includes('required');
                     div.className = `checklist-badge-item ${isWarning ? 'warning' : 'checked'}`;
-                    
-                    const icon = isWarning 
+
+                    const icon = isWarning
                         ? `<svg style="width:14px;height:14px;fill:currentColor;flex-shrink:0" viewBox="0 0 24 24"><path d="M12,2L1,21H23L12,2M12,6L19.53,19H4.47L12,6M11,10V14H13V10H11M11,16V18H13V16H11Z"/></svg>`
                         : `<svg style="width:14px;height:14px;fill:currentColor;flex-shrink:0" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"/></svg>`;
 
@@ -1654,4 +1764,5 @@
         });
     </script>
 </body>
+
 </html>
