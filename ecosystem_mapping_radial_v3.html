@@ -434,7 +434,20 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+
+        .node-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
         }
 
         .node-logo-img {
@@ -1329,7 +1342,7 @@
 
                     el.innerHTML = `
                         <span class="priority-dot ${actor.priority}"></span>
-                        ${innerContent}
+                        <div class="node-inner">${innerContent}</div>
                         <div class="node-tooltip">${actor.name}</div>
                     `;
 
